@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 
 app.get("/todos", (req, res) => {
-    res.json({
+    res.status(200).json({
         message: "todo fetched successfully",
         todos: todos
     })
@@ -19,7 +19,7 @@ app.post("/todos", (req, res) => {
     const newTodo = req.body;
     todos.push(newTodo);
 
-    res.json({
+    res.status(201).json({
         message: "new todo added successfully",
         todos: todos
     })
@@ -36,12 +36,19 @@ app.put("/todos/:id", (req, res) => {
             id,
             ...newTodo
         }
+
+        res.json({
+            message: "todo updated successfully",
+            todos: todos
+        })
+    } else {
+        res.status(400).json({
+            message: "todo id not exists",
+            todos: todos
+        })
     }
 
-    res.json({
-        message: "todo updated successfully",
-        todos: todos
-    })
+
 })
 
 app.delete("/todos/:id", (req, res) => {
