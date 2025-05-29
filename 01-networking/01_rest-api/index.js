@@ -1,0 +1,65 @@
+import express from 'express';
+import bodyParser from 'body-parser';
+import { todos } from "./data.js"
+
+const app = express();
+
+// Middleware to parse JSON bodies
+app.use(bodyParser.json());
+
+app.get("/todos", (req, res) => {
+    res.json({
+        message: "todo fetched successfully",
+        todos: todos
+    })
+})
+
+
+app.post("/todos", (req, res) => {
+    const newTodo = req.body;
+    todos.push(newTodo);
+
+    res.json({
+        message: "new todo added successfully",
+        todos: todos
+    })
+})
+
+app.put("/todos/:id", (req, res) => {
+    const { id } = req.params;
+    const newTodo = req.body;
+
+    const todoIndex = todos?.findIndex((todo) => todo?.id === id)
+
+    if (todoIndex !== -1) {
+        todos[todoIndex] = {
+            id,
+            ...newTodo
+        }
+    }
+
+    res.json({
+        message: "todo updated successfully",
+        todos: todos
+    })
+})
+
+app.delete("/todos/:id", (req, res) => {
+    const { id } = req.params;
+    const newTodo = req.body;
+
+    const todoIndex = todos?.findIndex((todo) => todo?.id === id)
+
+    if (todoIndex !== -1) {
+        todos.splice(todoIndex, 1);
+    }
+
+    res.json({
+        message: "todo deleted successfully",
+        todos: todos
+    })
+})
+
+app.listen(3000, () => {
+    console.log('Server is running on http://localhost:3000');
+});
