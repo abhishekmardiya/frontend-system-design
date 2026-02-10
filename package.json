@@ -1,0 +1,26 @@
+{
+	"name": "frontend-system-design",
+	"version": "1.0.0",
+	"description": "- This project is the practice of designing and building scalable, maintainable frontend applications. - It focuses on architecture, trade-offs, and implementation patterns. - It helps you reason about how systems work end-to-end—from APIs and state to UI and performance.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "biome check",
+		"format": "biome format --write"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/abhishekmardiya/frontend-system-design.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"type": "commonjs",
+	"bugs": {
+		"url": "https://github.com/abhishekmardiya/frontend-system-design/issues"
+	},
+	"homepage": "https://github.com/abhishekmardiya/frontend-system-design#readme",
+	"devDependencies": {
+		"@biomejs/biome": "2.3.14"
+	}
+}
