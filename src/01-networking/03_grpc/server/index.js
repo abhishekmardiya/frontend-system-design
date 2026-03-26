@@ -6,6 +6,9 @@ import grpc from "@grpc/grpc-js";
 import protoLoader from "@grpc/proto-loader";
 import { v4 as uuidv4 } from "uuid";
 
+// `@grpc/grpc-js` : is the main gRPC library for Node.js, used to create gRPC servers and clients.
+// `@grpc/proto-loader` : is used to load .proto files so Node.js can understand the gRPC service definitions.
+
 // Parse the file synchronously into a packageDefinition (descriptor + options for how types map to JS).
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true, // Field names stay as in .proto (e.g. snake_case) instead of default camelCase.
