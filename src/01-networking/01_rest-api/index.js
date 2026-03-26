@@ -7,7 +7,7 @@ const app = express();
 // Middleware to parse JSON bodies
 app.use(bodyParser.json());
 
-app.get("/todos", (req, res) => {
+app.get("/todos", (_req, res) => {
   res.status(200).json({
     message: "todo fetched successfully",
     todos: todos,
@@ -50,7 +50,6 @@ app.put("/todos/:id", (req, res) => {
 
 app.delete("/todos/:id", (req, res) => {
   const { id } = req.params;
-  const newTodo = req.body;
 
   const todoIndex = todos?.findIndex((todo) => todo?.id === id);
 

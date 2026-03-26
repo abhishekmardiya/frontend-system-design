@@ -3,13 +3,13 @@ import { data } from "./data.js";
 export const resolvers = {
   // relationship
   Book: {
-    author: (parent, args, context, info) => {
+    author: (parent, _args, _context, _info) => {
       // parent --> the single Book object ({ id: "101", title: "Book One", publishedYear: 2020, authorId: "1" })
       return data?.authors?.find((el) => el?.id === parent?.authorId);
     },
   },
   Author: {
-    books: (parent, args, context, info) => {
+    books: (parent, _args, _context, _info) => {
       return data?.books?.filter((el) => parent?.bookIds?.includes(el?.id));
     },
   },
@@ -25,7 +25,7 @@ export const resolvers = {
   },
 
   Mutation: {
-    addBook(parent, args, context, info) {
+    addBook(_parent, args, _context, _info) {
       const newBook = {
         ...args,
         id: data?.books?.length + 1,

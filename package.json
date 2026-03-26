@@ -1,7 +1,7 @@
 {
   "name": "frontend-system-design",
   "version": "1.0.0",
-  "description": "- This project is the practice of designing and building scalable, maintainable frontend applications. - It focuses on architecture, trade-offs, and implementation patterns. - It helps you reason about how systems work end-to-end—from APIs and state to UI and performance.",
+  "description": "This project is the practice of designing and building scalable, maintainable frontend applications. It focuses on architecture, trade-offs, and implementation patterns. It helps you reason about how systems work end-to-end—from APIs and state to UI and performance.",
   "main": "index.js",
   "scripts": {
     "lint": "biome check",
