@@ -23,5 +23,13 @@
   },
   "[jsonc]": {
     "editor.defaultFormatter": "biomejs.biome"
+  },
+  "cSpell.words": ["protoc", "uuidv"],
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss",
+    "*.mdx": "markdown"
   }
 }

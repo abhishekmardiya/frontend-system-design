@@ -1,0 +1,35 @@
+// Syntax: which .proto language version this file uses (rules for types, defaults, JSON). gRPC tooling compiles proto3 contracts into stubs.
+syntax = "proto3";
+
+// Service: a named remote API — a set of rpc methods clients can call; the server implements it, the client gets a stub from generated code.
+service CustomerService {
+    // Each rpc is one callable operation: client stub ↔ server implementation over HTTP/2; unary = single request message, single response.
+    rpc GetAll (Empty) returns (CustomerList) {}
+    rpc Get (CustomerId) returns (Customer) {}
+    rpc Insert (Customer) returns (Customer) {}
+    rpc Update (Customer) returns (Customer) {}
+    rpc Remove (CustomerId) returns (Empty) {}
+}
+
+// Message: a structured data type (schema) serialized as protobuf on the wire; rpc request/response types are always messages, not bare scalars.
+message Empty {}
+
+message CustomerId {
+    // Request/response bodies are protobuf messages; field numbers are the stable wire identity so old and new binaries can interoperate.
+    string id = 1;
+}
+
+message CustomerList {
+    // Maps to a list in generated code; on the wire it’s a sequence of Customer messages — how collections appear in gRPC payloads.
+    // Repeated fields are arrays in generated code; on the wire they’re encoded as a sequence of values — how arrays appear in gRPC payloads.
+    repeated Customer customers = 1;
+}
+
+message Customer {
+    // Scalar fields become typed properties in stubs; still one protobuf message per RPC direction unless streaming is used.
+    string id = 1;
+    string name = 2;
+    int32 age = 3;
+    // Don’t reuse numbers: gRPC/protobuf compatibility depends on tags; gaps let you retire or postpone fields without breaking clients.
+    string address = 5;
+}

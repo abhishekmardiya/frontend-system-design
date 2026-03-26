@@ -1,0 +1,2 @@
+- Put a README.md in each npm-backed folder (install, scripts, ports, one-line purpose)—not per arbitrary source file.
+- In every package.json: `"type": "module"`, `name` in kebab-case matching the folder minus the leading number (e.g. `grpc` for `03_grpc`), `nodemon` in devDependencies, and scripts that separate a plain run (`start` → `node …`) from watch mode (`dev` → `nodemon …`, or `dev:server` / `dev:client` if there are two apps).
