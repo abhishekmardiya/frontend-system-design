@@ -31,24 +31,23 @@ Or watch mode (restart on changes):
 npm run dev
 ```
 
-Server prints **`http://localhost:4000/`** (Apollo standalone — use this URL as the GraphQL HTTP endpoint). You can also run `node index.js` directly.
+Server prints **`http://localhost:4000/`** (Apollo standalone — use this URL as the GraphQL HTTP endpoint). You can also run `nodemon index.js` directly.
 
 ## Run example client (optional)
 
 With the server already running, from **`02_graphql`** (parent of `server` and `client`):
 
 ```bash
-node client/fetch/index.js
+nodemon client/fetch/index.js
 ```
 
 That script sends a **query** (`GetData`) and a **mutation** (`AddBook`) to `http://localhost:4000`.
 
 ## npm scripts (`server/package.json`)
 
-| Script  | Command              | Role                    |
-| ------- | -------------------- | ----------------------- |
-| `start` | `node ./index.js`    | Run the server once     |
-| `dev`   | `nodemon ./index.js` | Restart on file changes |
+| Script  | Command              | Role                       |
+| ------- | -------------------- | -------------------------- |
+| `start` | `nodemon ./index.js` | Run the server with reload |
 
 ## Schema (summary)
 

@@ -109,7 +109,7 @@ server.bindAsync(
     } else {
       // @grpc/grpc-js 1.10+: bindAsync already listens;
       // omit server.start(); as it is deprecated.
-      // run the file (node server/index.js), and the server is “up” once the bindAsync callback runs without err and you log the port.
+      // run the file (nodemon server/index.js), and the server is “up” once the bindAsync callback runs without err and you log the port.
       console.log(`gRPC server is listening on ${port}`);
     }
   },

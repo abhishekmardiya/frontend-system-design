@@ -36,12 +36,10 @@ Scripts assume your current working directory is **`03_grpc`** (same folder as `
 
 ## npm scripts
 
-| Script       | Command                   | Role                                     |
-| ------------ | ------------------------- | ---------------------------------------- |
-| `server`     | `node server/index.js`    | gRPC backend                             |
-| `client`     | `node client/index.js`    | REST-ish routes that use the gRPC client |
-| `dev:server` | `nodemon server/index.js` | gRPC backend with reload                 |
-| `dev:client` | `nodemon client/index.js` | HTTP + gRPC client with reload           |
+| Script   | Command                   | Role                                     |
+| -------- | ------------------------- | ---------------------------------------- |
+| `server` | `nodemon server/index.js` | gRPC backend                             |
+| `client` | `nodemon client/index.js` | REST-ish routes that use the gRPC client |
 
 ## HTTP routes (with `npm run client`)
 

@@ -24,7 +24,7 @@ npm start
 Or:
 
 ```bash
-node index.js
+nodemon index.js
 ```
 
 Server listens on **http://localhost:3000**.
@@ -35,8 +35,7 @@ Server listens on **http://localhost:3000**.
 
 | Script  | Command            | Role                    |
 | ------- | ------------------ | ----------------------- |
-| `start` | `node index.js`    | Run the API once        |
-| `dev`   | `nodemon index.js` | Restart on file changes |
+| `start` | `nodemon index.js` | Run the API with reload |
 
 ## HTTP API
 
