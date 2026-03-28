@@ -1,10 +1,13 @@
-// Path to the .proto contract; proto-loader reads this at startup (no separate protoc step for this example).
-const PROTO_PATH = "./customers.proto";
-
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import grpc from "@grpc/grpc-js";
 // Turns .proto text into a JS object model @grpc/grpc-js can use to build a Server and stubs.
 import protoLoader from "@grpc/proto-loader";
 import { v4 as uuidv4 } from "uuid";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// Next to server/ — works when started from repo root (`npm run grpc:server`).
+const PROTO_PATH = path.join(__dirname, "..", "customers.proto");
 
 // `@grpc/grpc-js` : is the main gRPC library for Node.js, used to create gRPC servers and clients.
 // `@grpc/proto-loader` : is used to load .proto files so Node.js can understand the gRPC service definitions.
@@ -109,7 +112,7 @@ server.bindAsync(
     } else {
       // @grpc/grpc-js 1.10+: bindAsync already listens;
       // omit server.start(); as it is deprecated.
-      // run the file (nodemon server/index.js), and the server is “up” once the bindAsync callback runs without err and you log the port.
+      // run via `npm run grpc:server`; the server is “up” once the bindAsync callback runs without err and you log the port.
       console.log(`gRPC server is listening on ${port}`);
     }
   },

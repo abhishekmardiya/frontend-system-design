@@ -4,10 +4,49 @@
 - It focuses on architecture, trade-offs, and implementation patterns.
 - It explores how systems work end-to-end—from APIs and state to UI and performance.
 
+## Setup
+
+**Dependencies are managed in a single `package.json` at the repository root.** There are no per-folder `package.json` files. Install once from the root:
+
+```bash
+npm install
+```
+
+**Modules use ESM:** the root manifest sets `"type": "module"`, so `.js` files are treated as ES modules.
+
+**Paths to files on disk** the current working directory is usually the **repo root**, not the chapter folder. So **do not rely on** paths like `./some-file.js`. Build an absolute path with **`node:path`** and **`import.meta.url`** (via `fileURLToPath`) so the file resolves next to the module, independent of where you started Node.
+
+## Run examples
+
+From the repository root:
+
+| Script                        | What it runs                                      |
+| ----------------------------- | ------------------------------------------------- |
+| `npm run start:rest-api`      | REST todos API → **http://localhost:3000**        |
+| `npm run start:graphql`       | Apollo GraphQL → **http://localhost:4000**        |
+| `npm run start:graphql-fetch` | Sample `fetch` client (needs GraphQL server up)   |
+| `npm run grpc:server`         | gRPC `CustomerService` → **127.0.0.1:30043**      |
+| `npm run grpc:client`         | Express + gRPC client → **http://localhost:3000** |
+| `npm run start:short-polling` | Short-polling chapter entry (see folder README)   |
+| `npm run lint`                | `biome check`                                     |
+| `npm run format`              | `biome format --write`                            |
+| `npm test`                    | Run `node --test` — verifies every npm script     |
+
+Each chapter’s **README** has API details and a file map.
+
 ## Concepts
 
-| Topic       | Code                                                             |
-| ----------- | ---------------------------------------------------------------- |
-| **REST**    | [`src/01-networking/01_rest-api`](src/01-networking/01_rest-api) |
-| **GraphQL** | [`src/01-networking/02_graphql`](src/01-networking/02_graphql)   |
-| **gRPC**    | [`src/01-networking/03_grpc`](src/01-networking/03_grpc)         |
+| Topic             | Code                                                                             |
+| ----------------- | -------------------------------------------------------------------------------- |
+| **REST**          | [`src/01-networking/01_rest-api`](src/01-networking/01_rest-api)                 |
+| **GraphQL**       | [`src/01-networking/02_graphql`](src/01-networking/02_graphql)                   |
+| **gRPC**          | [`src/01-networking/03_grpc`](src/01-networking/03_grpc)                         |
+| **Short polling** | [`src/02-communication/01_short-polling`](src/02-communication/01_short-polling) |
+
+## Dependencies
+
+Install from the root [`package.json`](package.json). Chapter READMEs list packages used per example.
+
+| Packages                                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------- |
+| `@apollo/server`, `@biomejs/biome`, `@grpc/grpc-js`, `@grpc/proto-loader`, `@types/uuid`, `body-parser`, `express`, `graphql`, `uuid` |

@@ -1,15 +1,14 @@
-# REST API demo (todos)
+# REST API
 
 Small **Express** app that exposes classic **REST** routes over HTTP/JSON: verbs and paths map to CRUD on an in-memory todo list (`data.js`). Sibling examples in `01-networking`: **GraphQL** (`02_graphql`), **gRPC** (`03_grpc`).
 
 ## Prerequisites
 
 - Node.js
-- This package uses `"type": "module"` (ESM).
 
 ## Install
 
-From this folder (`src/01-networking/01_rest-api`):
+From the **repository root**:
 
 ```bash
 npm install
@@ -17,25 +16,19 @@ npm install
 
 ## Run
 
-```bash
-npm start
-```
-
-Or:
+From the **repository root**:
 
 ```bash
-nodemon index.js
+npm run start:rest-api
 ```
 
 Server listens on **http://localhost:3000**.
 
-**Watch mode:** `npm run dev` uses **nodemon** (listed in `devDependencies`) to restart on file changes.
+## npm script (root `package.json`)
 
-## npm scripts
-
-| Script  | Command            | Role                    |
-| ------- | ------------------ | ----------------------- |
-| `start` | `nodemon index.js` | Run the API with reload |
+| Script           | Role        |
+| ---------------- | ----------- |
+| `start:rest-api` | Run the API |
 
 ## HTTP API
 
@@ -52,3 +45,11 @@ Responses are JSON and include `message` and the full `todos` array where applic
 
 - `index.js` — Express app and routes
 - `data.js` — seed `todos` array (in-memory store)
+
+## Dependencies
+
+Root [`package.json`](../../../package.json).
+
+| Packages                 |
+| ------------------------ |
+| `body-parser`, `express` |

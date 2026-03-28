@@ -1,7 +1,10 @@
-const PROTO_PATH = "./customers.proto";
-
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import grpc from "@grpc/grpc-js";
 import protoLoader from "@grpc/proto-loader";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const PROTO_PATH = path.join(__dirname, "..", "customers.proto");
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,

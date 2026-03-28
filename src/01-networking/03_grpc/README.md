@@ -1,12 +1,12 @@
-# gRPC demo (customers)
+# gRPC
 
 ## Prerequisites
 
-- Node.js (this package uses `"type": "module"`)
+- Node.js
 
 ## Install
 
-From this folder (`src/01-networking/03_grpc`):
+From the **repository root**:
 
 ```bash
 npm install
@@ -14,34 +14,32 @@ npm install
 
 ## Run (two terminals)
 
-Scripts assume your current working directory is **`03_grpc`** (same folder as `package.json`), so `customers.proto` resolves correctly.
+Run both processes **from the repository root** (see the root **README** for why `.proto` paths use `node:path` + `import.meta.url` in code).
 
 1. **gRPC server** (Protobuf `CustomerService` on **127.0.0.1:30043**):
 
    ```bash
-   npm run server
+   npm run grpc:server
    ```
 
-   You should see: `gRPC server is listening on 30043`. Use `npm run dev:server` for **nodemon** (auto-restart on changes).
+   You should see: `gRPC server is listening on 30043`.
 
 2. **HTTP app + gRPC client** (Express on **http://localhost:3000**, calls the gRPC server):
 
    ```bash
-   npm run client
+   npm run grpc:client
    ```
-
-   Use `npm run dev:client` for **nodemon** on the HTTP app.
 
    Start the gRPC server first; the HTTP layer will fail RPCs if nothing is listening on `30043`.
 
-## npm scripts
+## npm scripts (root `package.json`)
 
-| Script   | Command                   | Role                                     |
-| -------- | ------------------------- | ---------------------------------------- |
-| `server` | `nodemon server/index.js` | gRPC backend                             |
-| `client` | `nodemon client/index.js` | REST-ish routes that use the gRPC client |
+| Script        | Role                                     |
+| ------------- | ---------------------------------------- |
+| `grpc:server` | gRPC backend                             |
+| `grpc:client` | REST-ish routes that use the gRPC client |
 
-## HTTP routes (with `npm run client`)
+## HTTP routes (with `npm run grpc:client`)
 
 - `GET /` — list customers (via `GetAll`)
 - `POST /create` — JSON body: `name`, `age`, `address`
@@ -54,3 +52,11 @@ Scripts assume your current working directory is **`03_grpc`** (same folder as `
 - `server/index.js` — gRPC service implementation
 - `client/client.js` — gRPC stub targeting `127.0.0.1:30043`
 - `client/index.js` — Express app on port `3000`
+
+## Dependencies
+
+Root [`package.json`](../../../package.json).
+
+| Packages                                                                |
+| ----------------------------------------------------------------------- |
+| `@grpc/grpc-js`, `@grpc/proto-loader`, `body-parser`, `express`, `uuid` |

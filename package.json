@@ -1,11 +1,19 @@
 {
   "name": "frontend-system-design",
   "version": "1.0.0",
+  "private": true,
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start:rest-api": "node src/01-networking/01_rest-api/index.js",
+    "start:graphql": "node src/01-networking/02_graphql/server/index.js",
+    "start:graphql-fetch": "node src/01-networking/02_graphql/client/fetch/index.js",
+    "grpc:server": "node src/01-networking/03_grpc/server/index.js",
+    "grpc:client": "node src/01-networking/03_grpc/client/index.js",
+    "start:short-polling": "node src/02-communication/01_short-polling/index.js",
     "lint": "biome check",
-    "format": "biome format --write"
+    "format": "biome format --write",
+    "test": "node --test test/scripts.test.mjs"
   },
   "repository": {
     "type": "git",
@@ -18,7 +26,17 @@
     "url": "https://github.com/abhishekmardiya/frontend-system-design/issues"
   },
   "homepage": "https://github.com/abhishekmardiya/frontend-system-design#readme",
+  "dependencies": {
+    "@apollo/server": "^4.12.1",
+    "@grpc/grpc-js": "^1.9.13",
+    "@grpc/proto-loader": "^0.7.10",
+    "body-parser": "^2.2.0",
+    "express": "^5.2.1",
+    "graphql": "^16.11.0",
+    "uuid": "^9.0.1"
+  },
   "devDependencies": {
-    "@biomejs/biome": "2.3.14"
+    "@biomejs/biome": "2.3.14",
+    "@types/uuid": "^10.0.0"
   }
 }
