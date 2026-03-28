@@ -5,12 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start:rest-api": "node src/01-networking/01_rest-api/index.js",
-    "start:graphql": "node src/01-networking/02_graphql/server/index.js",
-    "start:graphql-fetch": "node src/01-networking/02_graphql/client/fetch/index.js",
-    "start:grpc-server": "node src/01-networking/03_grpc/server/index.js",
-    "start:grpc-client": "node src/01-networking/03_grpc/client/index.js",
-    "start:short-polling": "node src/02-communication/01_short-polling/index.js",
+    "start:rest-api": "nodemon src/01-networking/01_rest-api src/01-networking/01_rest-api/index.js",
+    "start:graphql": "nodemon src/01-networking/02_graphql/server src/01-networking/02_graphql/server/index.js",
+    "start:graphql-fetch": "nodemon src/01-networking/02_graphql/client/fetch src/01-networking/02_graphql/client/fetch/index.js",
+    "start:grpc-server": "nodemon src/01-networking/03_grpc/server src/01-networking/03_grpc/customers.proto src/01-networking/03_grpc/server/index.js",
+    "start:grpc-client": "nodemon src/01-networking/03_grpc/client src/01-networking/03_grpc/customers.proto src/01-networking/03_grpc/client/index.js",
+    "start:short-polling": "nodemon src/02-communication/01_short-polling src/02-communication/01_short-polling/index.js",
     "lint": "biome check",
     "format": "biome format --write",
     "test": "node --test test/scripts.test.mjs"
@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.14",
-    "@types/uuid": "^10.0.0"
+    "@types/uuid": "^10.0.0",
+    "nodemon": "^3.1.14"
   }
 }

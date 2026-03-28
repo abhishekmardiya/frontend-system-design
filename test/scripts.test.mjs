@@ -90,6 +90,42 @@ function spawnNode(relativeEntry) {
 }
 
 /**
+ * Run an entry once with `node` and resolve when it exits 0. Used where `npm run start:…`
+ * uses nodemon (which stays alive) but the underlying script is one-shot.
+ *
+ * @param {string} relativeEntry path from repo root
+ * @returns {Promise<void>}
+ */
+function runNodeOnce(relativeEntry) {
+  return new Promise((resolve, reject) => {
+    const entry = path.join(root, relativeEntry);
+    const child = spawn(process.execPath, [entry], {
+      cwd: root,
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+    let out = "";
+    let err = "";
+    child.stdout.on("data", (chunk) => {
+      out += chunk;
+    });
+    child.stderr.on("data", (chunk) => {
+      err += chunk;
+    });
+    child.on("close", (code) => {
+      if (code === 0) {
+        resolve();
+        return;
+      }
+      reject(
+        new Error(
+          `node ${relativeEntry} exited with code ${code}\n--- stderr ---\n${err}\n--- stdout ---\n${out}`,
+        ),
+      );
+    });
+  });
+}
+
+/**
  * @param {import('node:child_process').ChildProcess} child
  * @returns {Promise<void>}
  */
@@ -123,7 +159,7 @@ describe("npm scripts", { concurrency: false }, () => {
   });
 
   test("start:short-polling", async () => {
-    await runNpmScript("start:short-polling");
+    await runNodeOnce("src/02-communication/01_short-polling/index.js");
   });
 
   test("start:rest-api — server listens and responds", async () => {
@@ -146,7 +182,7 @@ describe("npm scripts", { concurrency: false }, () => {
     );
     try {
       await waitForPort("127.0.0.1", 4000, 20_000);
-      await runNpmScript("start:graphql-fetch");
+      await runNodeOnce("src/01-networking/02_graphql/client/fetch/index.js");
     } catch (err) {
       const detail = `${err instanceof Error ? err.message : err}\n--- stderr ---\n${log.err}\n--- stdout ---\n${log.out}`;
       throw new Error(detail);

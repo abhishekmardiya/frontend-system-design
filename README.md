@@ -18,7 +18,7 @@ npm install
 
 ## Run examples
 
-From the repository root:
+From the repository root. All **`start:…`** scripts run through **[nodemon](https://nodemon.io/)**; each script only watches its chapter folder so restarts stay cheap.
 
 | Script                        | What it runs                                      |
 | ----------------------------- | ------------------------------------------------- |
@@ -47,6 +47,6 @@ Each chapter’s **README** has API details and a file map.
 
 Install from the root [`package.json`](package.json). Chapter READMEs list packages used per example.
 
-| Packages                                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------- |
-| `@apollo/server`, `@biomejs/biome`, `@grpc/grpc-js`, `@grpc/proto-loader`, `@types/uuid`, `body-parser`, `express`, `graphql`, `uuid` |
+| Packages                                                                                                                                         |
+| ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `@apollo/server`, `@biomejs/biome`, `@grpc/grpc-js`, `@grpc/proto-loader`, `@types/uuid`, `body-parser`, `express`, `graphql`, `uuid`, `nodemon` |
