@@ -10,7 +10,7 @@
 ## Root `package.json` only
 
 - All **dependencies** and **scripts** live at the repo root—no `package.json` under `src/`. ESM by default (`"type": "module"`).
-- Runnable examples: `node src/…/entry.js` from root, consistent names (`start:…`, `grpc:…`). **lint** / **format** stay root-only.
+- Runnable examples: `node src/…/entry.js` from root, consistent names (`start:…`). **lint** / **format** stay root-only.
 
 ## Paths
 

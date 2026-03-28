@@ -155,7 +155,7 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("grpc:server + grpc:client — HTTP responds", async () => {
+  test("start:grpc-server + start:grpc-client — HTTP responds", async () => {
     const server = spawnNode("src/01-networking/03_grpc/server/index.js");
     try {
       await waitForPort("127.0.0.1", 30043, 15_000);

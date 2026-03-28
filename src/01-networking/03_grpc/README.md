@@ -19,7 +19,7 @@ Run both processes **from the repository root** (see the root **README** for why
 1. **gRPC server** (Protobuf `CustomerService` on **127.0.0.1:30043**):
 
    ```bash
-   npm run grpc:server
+   npm run start:grpc-server
    ```
 
    You should see: `gRPC server is listening on 30043`.
@@ -27,19 +27,19 @@ Run both processes **from the repository root** (see the root **README** for why
 2. **HTTP app + gRPC client** (Express on **http://localhost:3000**, calls the gRPC server):
 
    ```bash
-   npm run grpc:client
+   npm run start:grpc-client
    ```
 
    Start the gRPC server first; the HTTP layer will fail RPCs if nothing is listening on `30043`.
 
 ## npm scripts (root `package.json`)
 
-| Script        | Role                                     |
-| ------------- | ---------------------------------------- |
-| `grpc:server` | gRPC backend                             |
-| `grpc:client` | REST-ish routes that use the gRPC client |
+| Script              | Role                                     |
+| ------------------- | ---------------------------------------- |
+| `start:grpc-server` | gRPC backend                             |
+| `start:grpc-client` | REST-ish routes that use the gRPC client |
 
-## HTTP routes (with `npm run grpc:client`)
+## HTTP routes (with `npm run start:grpc-client`)
 
 - `GET /` — list customers (via `GetAll`)
 - `POST /create` — JSON body: `name`, `age`, `address`

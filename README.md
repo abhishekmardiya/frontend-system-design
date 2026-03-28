@@ -25,8 +25,8 @@ From the repository root:
 | `npm run start:rest-api`      | REST todos API → **http://localhost:3000**        |
 | `npm run start:graphql`       | Apollo GraphQL → **http://localhost:4000**        |
 | `npm run start:graphql-fetch` | Sample `fetch` client (needs GraphQL server up)   |
-| `npm run grpc:server`         | gRPC `CustomerService` → **127.0.0.1:30043**      |
-| `npm run grpc:client`         | Express + gRPC client → **http://localhost:3000** |
+| `npm run start:grpc-server`   | gRPC `CustomerService` → **127.0.0.1:30043**      |
+| `npm run start:grpc-client`   | Express + gRPC client → **http://localhost:3000** |
 | `npm run start:short-polling` | Short-polling chapter entry (see folder README)   |
 | `npm run lint`                | `biome check`                                     |
 | `npm run format`              | `biome format --write`                            |

@@ -6,7 +6,7 @@ import protoLoader from "@grpc/proto-loader";
 import { v4 as uuidv4 } from "uuid";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-// Next to server/ — works when started from repo root (`npm run grpc:server`).
+// Next to server/ — works when started from repo root (`npm run start:grpc-server`).
 const PROTO_PATH = path.join(__dirname, "..", "customers.proto");
 
 // `@grpc/grpc-js` : is the main gRPC library for Node.js, used to create gRPC servers and clients.
@@ -112,7 +112,7 @@ server.bindAsync(
     } else {
       // @grpc/grpc-js 1.10+: bindAsync already listens;
       // omit server.start(); as it is deprecated.
-      // run via `npm run grpc:server`; the server is “up” once the bindAsync callback runs without err and you log the port.
+      // run via `npm run start:grpc-server`; the server is “up” once the bindAsync callback runs without err and you log the port.
       console.log(`gRPC server is listening on ${port}`);
     }
   },
