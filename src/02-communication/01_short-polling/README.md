@@ -20,7 +20,7 @@ npm run start:short-polling
 
 ## Port
 
-Set in `index.js` when the server is implemented (Express or other HTTP server).
+**3000** — set in `index.js` (`app.listen`).
 
 ## Dependencies
 
