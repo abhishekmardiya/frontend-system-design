@@ -1,10 +1,102 @@
 import assert from "node:assert/strict";
-import { spawn } from "node:child_process";
+import { execFileSync, spawn } from "node:child_process";
 import { once } from "node:events";
 import { createConnection } from "node:net";
 import path from "node:path";
-import { describe, test } from "node:test";
+import { afterEach, before, describe, test } from "node:test";
 import { fileURLToPath } from "node:url";
+
+/** Ports used by runnable examples in this repo (avoid clashes between tests). */
+const EXAMPLE_PORTS = [3000, 4000, 30043];
+
+/**
+ * @param {number} ms
+ * @returns {Promise<void>}
+ */
+function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+/**
+ * @param {number} port
+ * @returns {number[]}
+ */
+function getListenerPids(port) {
+  if (process.platform === "win32") {
+    try {
+      const out = execFileSync(
+        "powershell.exe",
+        [
+          "-NoProfile",
+          "-NonInteractive",
+          "-Command",
+          `$c = Get-NetTCPConnection -LocalPort ${port} -State Listen -ErrorAction SilentlyContinue; if ($null -ne $c) { $c.OwningProcess | Sort-Object -Unique }`,
+        ],
+        { encoding: "utf8", windowsHide: true },
+      );
+      return out
+        .trim()
+        .split(/\r?\n/)
+        .map((line) => line.trim())
+        .filter(Boolean)
+        .map(Number)
+        .filter((n) => Number.isFinite(n));
+    } catch {
+      return [];
+    }
+  }
+  try {
+    const out = execFileSync("lsof", ["-t", `-iTCP:${port}`, "-sTCP:LISTEN"], {
+      encoding: "utf8",
+    });
+    return out
+      .trim()
+      .split("\n")
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map(Number)
+      .filter((n) => Number.isFinite(n));
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Stop any process listening on `port` so the next test can bind (handles EADDRINUSE / stray servers).
+ *
+ * @param {number} port
+ * @returns {Promise<void>}
+ */
+async function freePort(port) {
+  const signalPids = (signal) => {
+    for (const pid of getListenerPids(port)) {
+      if (pid === process.pid) {
+        continue;
+      }
+      try {
+        process.kill(pid, signal);
+      } catch {
+        // ESRCH or permission — ignore
+      }
+    }
+  };
+  signalPids("SIGTERM");
+  await delay(200);
+  signalPids("SIGKILL");
+  await delay(100);
+}
+
+/**
+ * @param {readonly number[]} ports
+ * @returns {Promise<void>}
+ */
+async function freePorts(ports) {
+  for (const port of ports) {
+    await freePort(port);
+  }
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
@@ -150,6 +242,14 @@ async function killChild(child) {
 }
 
 describe("npm scripts", { concurrency: false }, () => {
+  before(async () => {
+    await freePorts(EXAMPLE_PORTS);
+  });
+
+  afterEach(async () => {
+    await freePorts(EXAMPLE_PORTS);
+  });
+
   test("lint", async () => {
     await runNpmScript("lint");
   });
@@ -159,7 +259,19 @@ describe("npm scripts", { concurrency: false }, () => {
   });
 
   test("start:short-polling", async () => {
-    await runNodeOnce("src/02-communication/01_short-polling/index.js");
+    const { child, log } = spawnNode(
+      "src/02-communication/01_short-polling/index.js",
+    );
+    try {
+      await waitForPort("127.0.0.1", 3000, 15_000);
+      const res = await fetch("http://127.0.0.1:3000/getData");
+      assert.equal(res.ok, true);
+    } catch (err) {
+      const detail = `${err instanceof Error ? err.message : err}\n--- stderr ---\n${log.err}\n--- stdout ---\n${log.out}`;
+      throw new Error(detail);
+    } finally {
+      await killChild(child);
+    }
   });
 
   test("start:rest-api — server listens and responds", async () => {
