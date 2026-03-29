@@ -20,17 +20,17 @@ npm install
 
 From the repository root. All **`start:…`** scripts run through **[nodemon](https://nodemon.io/)**; each script only watches its chapter folder so restarts stay cheap.
 
-| Script                        | What it runs                                      |
-| ----------------------------- | ------------------------------------------------- |
-| `npm run start:rest-api`      | REST todos API → **http://localhost:3000**        |
-| `npm run start:graphql`       | Apollo GraphQL → **http://localhost:4000**        |
-| `npm run start:graphql-fetch` | Sample `fetch` client (needs GraphQL server up)   |
-| `npm run start:grpc-server`   | gRPC `CustomerService` → **127.0.0.1:30043**      |
-| `npm run start:grpc-client`   | Express + gRPC client → **http://localhost:3000** |
-| `npm run start:short-polling` | Short-polling chapter entry (see folder README)   |
-| `npm run lint`                | `biome check`                                     |
-| `npm run format`              | `biome format --write`                            |
-| `npm test`                    | Run `node --test` — verifies every npm script     |
+| Script                        | What it runs                                                       |
+| ----------------------------- | ------------------------------------------------------------------ |
+| `npm run start:rest-api`      | REST todos API → **http://localhost:3000**                         |
+| `npm run start:graphql`       | Apollo GraphQL → **http://localhost:4000**                         |
+| `npm run start:graphql-fetch` | Sample `fetch` client (needs GraphQL server up)                    |
+| `npm run start:grpc-server`   | gRPC `CustomerService` → **127.0.0.1:30043**                       |
+| `npm run start:grpc-client`   | Express + gRPC client → **http://localhost:3000**                  |
+| `npm run start:short-polling` | Short-polling demo → **http://localhost:3000** (see folder README) |
+| `npm run lint`                | `biome check`                                                      |
+| `npm run format`              | `biome format --write`                                             |
+| `npm test`                    | Run `node --test` — verifies every npm script                      |
 
 Each chapter’s **README** has API details and a file map.
 
