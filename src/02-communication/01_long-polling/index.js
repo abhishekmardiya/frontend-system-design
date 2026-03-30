@@ -6,7 +6,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
-const data = "Initial Data";
+let data = "Initial Data";
 
 app.get("/", (_req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
@@ -14,8 +14,15 @@ app.get("/", (_req, res) => {
 
 app.get("/getData", (_req, res) => {
   res.send({
-    // Add a timestamp to demonstrate dynamic updates on each poll request
     data: `${data} ${Date.now()}`,
+  });
+});
+
+// Use post/put to update
+app.get("/updateData", (_req, res) => {
+  data = "Updated Data";
+  res.send({
+    data,
   });
 });
 

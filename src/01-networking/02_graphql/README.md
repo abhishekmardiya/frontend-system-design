@@ -1,47 +1,9 @@
 # GraphQL
 
-**Apollo Server 4** with a standalone HTTP server: one **GraphQL** endpoint (POST with JSON body) instead of many REST paths. Schema in `server/typeDefs.js`, logic in `server/resolvers.js`, seed data in `server/data.js`. A small **fetch** script under `client/fetch/` shows how a Node client calls the same endpoint.
+From the repository root:
 
-## Prerequisites
-
-- Node.js
-
-## Install
-
-From the **repository root**:
-
-```bash
-npm install
-```
-
-The demo client under `client/fetch/` uses built-in `fetch` (Node 18+).
-
-## Run GraphQL server
-
-From the **repository root**:
-
-```bash
-npm run start:graphql
-```
-
-Server prints **`http://localhost:4000/`** (Apollo standalone — use this URL as the GraphQL HTTP endpoint).
-
-## Run example client (optional)
-
-With the server already running, from the **repository root**:
-
-```bash
-npm run start:graphql-fetch
-```
-
-That script sends a **query** (`GetData`) and a **mutation** (`AddBook`) to `http://localhost:4000`.
-
-## npm scripts (root `package.json`)
-
-| Script                | Role                   |
-| --------------------- | ---------------------- |
-| `start:graphql`       | Run the GraphQL server |
-| `start:graphql-fetch` | Example `fetch` client |
+- `npm run start:graphql` — Apollo at **http://localhost:4000/** (GraphQL HTTP endpoint).
+- Optional: `npm run start:graphql-fetch` — sample query/mutation client (run with the server already up; uses Node’s built-in `fetch`).
 
 ## Schema (summary)
 
@@ -67,5 +29,3 @@ Root [`package.json`](../../../package.json).
 | Packages                    |
 | --------------------------- |
 | `@apollo/server`, `graphql` |
-
-`client/fetch/` uses Node’s built-in `fetch` (Node 18+).

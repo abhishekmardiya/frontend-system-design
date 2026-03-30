@@ -11,6 +11,7 @@
     "start:grpc-server": "nodemon src/01-networking/03_grpc/server src/01-networking/03_grpc/customers.proto src/01-networking/03_grpc/server/index.js",
     "start:grpc-client": "nodemon src/01-networking/03_grpc/client src/01-networking/03_grpc/customers.proto src/01-networking/03_grpc/client/index.js",
     "start:short-polling": "nodemon src/02-communication/01_short-polling src/02-communication/01_short-polling/index.js",
+    "start:long-polling": "nodemon src/02-communication/01_long-polling src/02-communication/01_long-polling/index.js",
     "lint": "biome check",
     "format": "biome format --write",
     "test": "node --test test/scripts.test.mjs"

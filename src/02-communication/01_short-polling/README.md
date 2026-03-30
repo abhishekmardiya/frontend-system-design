@@ -1,27 +1,18 @@
 # Short polling
 
-Example chapter under `02-communication`. Wire the server in `index.js` when you build the demo.
+From the repository root: `npm run start:short-polling` — **http://localhost:3000** (port set in `index.js` via `app.listen`).
 
-## Install
+## Files
 
-From the **repository root**:
-
-```bash
-npm install
-```
-
-## Run
-
-From the **repository root**:
-
-```bash
-npm run start:short-polling
-```
-
-## Port
-
-**3000** — set in `index.js` (`app.listen`).
+| File         | Role                          |
+| ------------ | ----------------------------- |
+| `index.js`   | Express server and `/getData` |
+| `index.html` | Demo page                     |
 
 ## Dependencies
 
-Root [`package.json`](../../../package.json). Nothing is imported in this folder until `index.js` is implemented; add a **Packages** row here when you add dependencies.
+Root [`package.json`](../../../package.json).
+
+| Packages  |
+| --------- |
+| `express` |

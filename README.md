@@ -28,6 +28,7 @@ From the repository root. All **`start:…`** scripts run through **[nodemon](ht
 | `npm run start:grpc-server`   | gRPC `CustomerService` → **127.0.0.1:30043**                       |
 | `npm run start:grpc-client`   | Express + gRPC client → **http://localhost:3000**                  |
 | `npm run start:short-polling` | Short-polling demo → **http://localhost:3000** (see folder README) |
+| `npm run start:long-polling`  | Long-polling demo → **http://localhost:3000** (see folder README)  |
 | `npm run lint`                | `biome check`                                                      |
 | `npm run format`              | `biome format --write`                                             |
 | `npm test`                    | Run `node --test` — verifies every npm script                      |
@@ -42,6 +43,7 @@ Each chapter’s **README** has API details and a file map.
 | **GraphQL**       | [`src/01-networking/02_graphql`](src/01-networking/02_graphql)                   |
 | **gRPC**          | [`src/01-networking/03_grpc`](src/01-networking/03_grpc)                         |
 | **Short polling** | [`src/02-communication/01_short-polling`](src/02-communication/01_short-polling) |
+| **Long polling**  | [`src/02-communication/01_long-polling`](src/02-communication/01_long-polling)   |
 
 ## Dependencies
 

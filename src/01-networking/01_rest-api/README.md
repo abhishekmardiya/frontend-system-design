@@ -1,34 +1,6 @@
 # REST API
 
-Small **Express** app that exposes classic **REST** routes over HTTP/JSON: verbs and paths map to CRUD on an in-memory todo list (`data.js`). Sibling examples in `01-networking`: **GraphQL** (`02_graphql`), **gRPC** (`03_grpc`).
-
-## Prerequisites
-
-- Node.js
-
-## Install
-
-From the **repository root**:
-
-```bash
-npm install
-```
-
-## Run
-
-From the **repository root**:
-
-```bash
-npm run start:rest-api
-```
-
-Server listens on **http://localhost:3000**.
-
-## npm script (root `package.json`)
-
-| Script           | Role        |
-| ---------------- | ----------- |
-| `start:rest-api` | Run the API |
+From the repository root: `npm run start:rest-api` — server at **http://localhost:3000**.
 
 ## HTTP API
 
@@ -43,8 +15,10 @@ Responses are JSON and include `message` and the full `todos` array where applic
 
 ## Files
 
-- `index.js` — Express app and routes
-- `data.js` — seed `todos` array (in-memory store)
+| File       | Role                                 |
+| ---------- | ------------------------------------ |
+| `index.js` | Express app and routes               |
+| `data.js`  | Seed `todos` array (in-memory store) |
 
 ## Dependencies
 
