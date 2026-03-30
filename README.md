@@ -43,7 +43,7 @@ Each chapter’s **README** has API details and a file map.
 | **GraphQL**       | [`src/01-networking/02_graphql`](src/01-networking/02_graphql)                   |
 | **gRPC**          | [`src/01-networking/03_grpc`](src/01-networking/03_grpc)                         |
 | **Short polling** | [`src/02-communication/01_short-polling`](src/02-communication/01_short-polling) |
-| **Long polling**  | [`src/02-communication/01_long-polling`](src/02-communication/01_long-polling)   |
+| **Long polling**  | [`src/02-communication/02_long-polling`](src/02-communication/02_long-polling)   |
 
 ## Dependencies
 
