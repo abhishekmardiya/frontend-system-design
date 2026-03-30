@@ -14,7 +14,7 @@ app.get("/", (_req, res) => {
 
 app.get("/getData", (_req, res) => {
   res.send({
-    data,
+    data: `${data} ${Date.now()}`,
   });
 });
 

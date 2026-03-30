@@ -6,9 +6,40 @@
     <title>Short Polling</title>
   </head>
   <body>
-    <h1>Short Polling</h1>
+    <h1>Short Polling (5 seconds)</h1>
     <div id="data-container"></div>
 
-    <script></script>
+    <script>
+      const getData = async () => {
+        try {
+          const response = await fetch("/getData");
+          const result = await response.json();
+
+          document.getElementById("data-container").innerHTML = result.data;
+        } catch (e) {
+          console.log(e);
+        }
+      };
+
+      let intervalId;
+      const shortPolling = () => {
+        clearInterval(intervalId);
+        intervalId = setInterval(() => {
+          getData();
+        }, 5000);
+      };
+
+      // Initial data fetch
+      getData();
+      // Start polling
+      shortPolling();
+
+      // Cleanup function to clear the interval when the page is hidden
+      const cleanup = () => {
+        clearInterval(intervalId);
+      };
+
+      window.addEventListener("pagehide", cleanup);
+    </script>
   </body>
 </html>
