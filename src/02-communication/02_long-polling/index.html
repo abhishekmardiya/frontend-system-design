@@ -17,13 +17,17 @@
 
           document.getElementById("container").innerHTML = result.data;
 
+          // we fire next request only if we get new data
+          // if we don't get new data, we keep the request open
+          // and wait for the server to push new data
           getData(result.data);
         } catch (e) {
           console.log(e);
         }
       };
 
-      getData("msg-0");
+      // fire the first request (for first request, we don't have any lastData).
+      getData();
     </script>
   </body>
 </html>

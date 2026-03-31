@@ -27,9 +27,8 @@ app.get("/getData", (req, res) => {
 });
 
 // Simulates “something changed on the server” (new message, notification, etc.).
-// In a real app you would usually use POST or PUT with a body; GET + query is only for this small demo.
-app.get("/updateData", (req, res) => {
-  data = req.query.data;
+app.post("/updateData", (req, res) => {
+  data = req.body.data;
 
   // Everyone who was still waiting on /getData (same lastData) gets a response now instead of timing out.
   while (waitingClients.length > 0) {
