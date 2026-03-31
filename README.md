@@ -20,18 +20,19 @@ npm install
 
 From the repository root. All **`start:…`** scripts run through **[nodemon](https://nodemon.io/)**; each script only watches its chapter folder so restarts stay cheap.
 
-| Script                        | What it runs                                                       |
-| ----------------------------- | ------------------------------------------------------------------ |
-| `npm run start:rest-api`      | REST todos API → **http://localhost:3000**                         |
-| `npm run start:graphql`       | Apollo GraphQL → **http://localhost:4000**                         |
-| `npm run start:graphql-fetch` | Sample `fetch` client (needs GraphQL server up)                    |
-| `npm run start:grpc-server`   | gRPC `CustomerService` → **127.0.0.1:30043**                       |
-| `npm run start:grpc-client`   | Express + gRPC client → **http://localhost:3000**                  |
-| `npm run start:short-polling` | Short-polling demo → **http://localhost:3000** (see folder README) |
-| `npm run start:long-polling`  | Long-polling demo → **http://localhost:3000** (see folder README)  |
-| `npm run lint`                | `biome check`                                                      |
-| `npm run format`              | `biome format --write`                                             |
-| `npm test`                    | Run `node --test` — verifies every npm script                      |
+| Script                        | What it runs                                                        |
+| ----------------------------- | ------------------------------------------------------------------- |
+| `npm run start:rest-api`      | REST todos API → **http://localhost:3000**                          |
+| `npm run start:graphql`       | Apollo GraphQL → **http://localhost:4000**                          |
+| `npm run start:graphql-fetch` | Sample `fetch` client (needs GraphQL server up)                     |
+| `npm run start:grpc-server`   | gRPC `CustomerService` → **127.0.0.1:30043**                        |
+| `npm run start:grpc-client`   | Express + gRPC client → **http://localhost:3000**                   |
+| `npm run start:short-polling` | Short-polling demo → **http://localhost:3000** (see folder README)  |
+| `npm run start:long-polling`  | Long-polling demo → **http://localhost:3000** (see folder README)   |
+| `npm run start:websocket`     | Socket.IO chat demo → **http://localhost:3000** (see folder README) |
+| `npm run lint`                | `biome check`                                                       |
+| `npm run format`              | `biome format --write`                                              |
+| `npm test`                    | Run `node --test` — verifies every npm script                       |
 
 Each chapter’s **README** has API details and a file map.
 
@@ -44,11 +45,12 @@ Each chapter’s **README** has API details and a file map.
 | **gRPC**          | [`src/01-networking/03_grpc`](src/01-networking/03_grpc)                         |
 | **Short polling** | [`src/02-communication/01_short-polling`](src/02-communication/01_short-polling) |
 | **Long polling**  | [`src/02-communication/02_long-polling`](src/02-communication/02_long-polling)   |
+| **WebSocket**     | [`src/02-communication/03_websocket`](src/02-communication/03_websocket)         |
 
 ## Dependencies
 
 Install from the root [`package.json`](package.json). Chapter READMEs list packages used per example.
 
-| Packages                                                                                                                                         |
-| ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `@apollo/server`, `@biomejs/biome`, `@grpc/grpc-js`, `@grpc/proto-loader`, `@types/uuid`, `body-parser`, `express`, `graphql`, `uuid`, `nodemon` |
+| Packages                                                                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@apollo/server`, `@biomejs/biome`, `@grpc/grpc-js`, `@grpc/proto-loader`, `@types/uuid`, `body-parser`, `express`, `graphql`, `socket.io`, `uuid`, `nodemon` |

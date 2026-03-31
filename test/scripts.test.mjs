@@ -274,6 +274,22 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
+  test("start:websocket", async () => {
+    const { child, log } = spawnNode(
+      "src/02-communication/03_websocket/index.js",
+    );
+    try {
+      await waitForPort("127.0.0.1", 3000, 15_000);
+      const res = await fetch("http://127.0.0.1:3000/");
+      assert.equal(res.ok, true);
+    } catch (err) {
+      const detail = `${err instanceof Error ? err.message : err}\n--- stderr ---\n${log.err}\n--- stdout ---\n${log.out}`;
+      throw new Error(detail);
+    } finally {
+      await killChild(child);
+    }
+  });
+
   test("start:rest-api — server listens and responds", async () => {
     const { child, log } = spawnNode("src/01-networking/01_rest-api/index.js");
     try {

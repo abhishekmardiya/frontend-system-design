@@ -12,6 +12,7 @@
     "start:grpc-client": "nodemon src/01-networking/03_grpc/client src/01-networking/03_grpc/customers.proto src/01-networking/03_grpc/client/index.js",
     "start:short-polling": "nodemon src/02-communication/01_short-polling src/02-communication/01_short-polling/index.js",
     "start:long-polling": "nodemon src/02-communication/02_long-polling src/02-communication/02_long-polling/index.js",
+    "start:websocket": "nodemon src/02-communication/03_websocket src/02-communication/03_websocket/index.js",
     "lint": "biome check",
     "format": "biome format --write",
     "test": "node --test test/scripts.test.mjs"
@@ -34,6 +35,7 @@
     "body-parser": "^2.2.0",
     "express": "^5.2.1",
     "graphql": "^16.11.0",
+    "socket.io": "^4.8.3",
     "uuid": "^9.0.1"
   },
   "devDependencies": {
