@@ -9,8 +9,9 @@ const app = express();
 app.get("/sse", (req, res) => {
   // SSE framing: browsers expect this MIME type to treat the response as an event stream.
   res.setHeader("Content-Type", "text/event-stream");
-  // Avoid intermediaries caching partial stream data; keep the TCP connection open for pushes.
+  // Avoid intermediaries caching partial stream data;
   res.setHeader("Cache-Control", "no-cache");
+  // keep the TCP connection open for pushes.
   res.setHeader("Connection", "keep-alive");
 
   // Wire format: each event is one or more `data:` lines, then a blank line (`\n\n`) to flush the event.
@@ -18,10 +19,11 @@ app.get("/sse", (req, res) => {
 
   const intervalId = setInterval(() => {
     res.write(`data: Server Time ${new Date().toLocaleDateString()} \n\n`);
-  }, 5000);
+  }, 2000);
 
   // When the client closes the tab or navigates away, stop the interval so the handler does not leak.
   req.on("close", () => {
+    console.log("Client disconnected");
     clearInterval(intervalId);
   });
 });
