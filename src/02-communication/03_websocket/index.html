@@ -65,11 +65,13 @@
     </form>
     <script src="/socket.io/socket.io.js"></script>
     <script>
+      // Connect to the Socket.IO server (same origin as this page).
       const socket = window.io();
       const form = document.getElementById("form");
       const input = document.getElementById("input");
       const messages = document.getElementById("messages");
 
+      // Send the typed message to the server; others receive it via the same event name.
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         if (input.value) {
@@ -78,6 +80,7 @@
         }
       });
 
+      // Append a line when the server broadcasts a chat message (including echoes).
       socket.on("chat message", (msg) => {
         const item = document.createElement("li");
         item.textContent = msg;
