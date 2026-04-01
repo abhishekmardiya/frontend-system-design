@@ -16,7 +16,7 @@
         background: rgba(0, 0, 0, 0.15);
         padding: 0.25rem;
         position: fixed;
-        top: 0;
+        bottom: 0;
         left: 0;
         right: 0;
         display: flex;
@@ -58,11 +58,11 @@
     </style>
   </head>
   <body>
+    <h1>Socket.IO</h1>
     <ul id="messages"></ul>
     <form id="form" action="">
       <input id="input" autocomplete="off" /><button>Send</button>
     </form>
-    <!-- we are using CDN here but there is dedicated npm library for this (socket.io-client) -->
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const socket = window.io();
@@ -73,7 +73,6 @@
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         if (input.value) {
-          console.log(input.value);
           socket.emit("chat message", input.value);
           input.value = "";
         }
