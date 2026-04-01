@@ -13,6 +13,7 @@
     "start:short-polling": "nodemon src/02-communication/01_short-polling src/02-communication/01_short-polling/index.js",
     "start:long-polling": "nodemon src/02-communication/02_long-polling src/02-communication/02_long-polling/index.js",
     "start:websocket": "nodemon src/02-communication/03_websocket src/02-communication/03_websocket/index.js",
+    "start:sse": "nodemon src/02-communication/04_sse src/02-communication/04_sse/index.js",
     "lint": "biome check",
     "format": "biome format --write",
     "test": "node --test test/scripts.test.mjs"

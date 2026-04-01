@@ -18,6 +18,11 @@
 - ESM `import` paths are relative to the file—fine.
 - String paths resolved from **`process.cwd()`** (e.g. proto loaders, `readFileSync`) break when cwd is the repo root. Build paths from **`import.meta.url`** + **`fileURLToPath`** + **`node:path`** (see gRPC).
 
+## Comments
+
+- **`src/…` examples are teaching aids:** add short comments.
+- **Do not** restate what the next line obviously does, or add long docblocks on trivial code. Prefer **one line** over a paragraph when a single phrase suffices.
+
 ## Before you finish
 
 - README script table ↔ `package.json` scripts; new topic ↔ Concepts row; chapter README: `npm run`, ports, Dependencies match imports; no duplicated **Setup** block in `src/…` READMEs.

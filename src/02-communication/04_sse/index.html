@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SSE</title>
+  </head>
+  <body>
+    <h1>Server-Sent Events</h1>
+    <div id="sse-data"></div>
+
+    <script>
+      // Opens a long-lived HTTP GET to `/sse`; the browser exposes incoming events as `MessageEvent`s.
+      const eventSource = new EventSource("/sse");
+
+      // Default event type: server lines use `data:` without `event:`, so they arrive as `message`.
+      eventSource.onmessage = (event) => {
+        const sseDataRef = document.getElementById("sse-data");
+        const p = document.createElement("p");
+        p.textContent = event.data;
+        sseDataRef.appendChild(p);
+      };
+
+      // Fires on network errors or if the server ends the stream; the browser may retry automatically.
+      eventSource.onerror = () => {
+        console.error("SSE connection error");
+      };
+    </script>
+  </body>
+</html>
