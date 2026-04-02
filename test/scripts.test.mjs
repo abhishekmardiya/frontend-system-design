@@ -82,20 +82,21 @@ async function freePort(port) {
       }
     }
   };
+  if (getListenerPids(port).length === 0) {
+    return;
+  }
   signalPids("SIGTERM");
-  await delay(200);
+  await delay(60);
   signalPids("SIGKILL");
-  await delay(100);
+  await delay(60);
 }
 
 /**
  * @param {readonly number[]} ports
  * @returns {Promise<void>}
  */
-async function freePorts(ports) {
-  for (const port of ports) {
-    await freePort(port);
-  }
+function freePorts(ports) {
+  return Promise.all(ports.map((port) => freePort(port)));
 }
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -121,7 +122,7 @@ function waitForPort(host, port, timeoutMs) {
       });
       socket.on("error", () => {
         socket.destroy();
-        setTimeout(attempt, 80);
+        setTimeout(attempt, 15);
       });
     };
     attempt();
@@ -250,12 +251,8 @@ describe("npm scripts", { concurrency: false }, () => {
     await freePorts(EXAMPLE_PORTS);
   });
 
-  test("lint", async () => {
-    await runNpmScript("lint");
-  });
-
-  test("format", async () => {
-    await runNpmScript("format");
+  test("lint + format", async () => {
+    await Promise.all([runNpmScript("lint"), runNpmScript("format")]);
   });
 
   test("start:short-polling", async () => {
@@ -324,7 +321,7 @@ describe("npm scripts", { concurrency: false }, () => {
         body: JSON.stringify({ event: "ping" }),
         headers: {
           "Content-Type": "application/json",
-          "x-webhook-secret": "test-secret",
+          "x-hub-signature": "test-secret",
         },
         method: "POST",
       });
