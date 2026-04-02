@@ -31,6 +31,7 @@ From the repository root. All **`start:…`** scripts run through **[nodemon](ht
 | `npm run start:long-polling`  | Long-polling demo → **http://localhost:3000** (see folder README)       |
 | `npm run start:websocket`     | Socket.IO chat demo → **http://localhost:3000** (see folder README)     |
 | `npm run start:sse`           | Server-Sent Events demo → **http://localhost:3000** (see folder README) |
+| `npm run start:webhook`       | Webhook receiver demo → **http://localhost:3000** (see folder README)   |
 | `npm run lint`                | `biome check`                                                           |
 | `npm run format`              | `biome format --write`                                                  |
 | `npm test`                    | Run `node --test` — verifies every npm script                           |
@@ -48,6 +49,7 @@ Each chapter’s **README** has API details and a file map.
 | **Long polling**  | [`src/02-communication/02_long-polling`](src/02-communication/02_long-polling)   |
 | **WebSocket**     | [`src/02-communication/03_websocket`](src/02-communication/03_websocket)         |
 | **SSE**           | [`src/02-communication/04_sse`](src/02-communication/04_sse)                     |
+| **Webhook**       | [`src/02-communication/05_webhook`](src/02-communication/05_webhook)             |
 
 ## Dependencies
 

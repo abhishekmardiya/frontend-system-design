@@ -21,6 +21,7 @@
 ## Comments
 
 - **`src/…` examples are teaching aids:** add short comments.
+- **Do not** remove existing comments in `src/…` when editing files—keep them unless you are replacing them with clearer teaching notes on the same idea.
 - **Do not** restate what the next line obviously does, or add long docblocks on trivial code. Prefer **one line** over a paragraph when a single phrase suffices.
 
 ## Before you finish

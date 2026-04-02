@@ -304,6 +304,39 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
+  test("start:webhook — POST with shared secret succeeds", async () => {
+    const entry = path.join(root, "src/02-communication/05_webhook/index.js");
+    const child = spawn(process.execPath, [entry], {
+      cwd: root,
+      env: { ...process.env, WEBHOOK_SECRET: "test-secret" },
+      stdio: ["ignore", "pipe", "pipe"],
+    });
+    const log = { out: "", err: "" };
+    child.stdout.on("data", (chunk) => {
+      log.out += chunk;
+    });
+    child.stderr.on("data", (chunk) => {
+      log.err += chunk;
+    });
+    try {
+      await waitForPort("127.0.0.1", 3000, 15_000);
+      const res = await fetch("http://127.0.0.1:3000/webhook", {
+        body: JSON.stringify({ event: "ping" }),
+        headers: {
+          "Content-Type": "application/json",
+          "x-webhook-secret": "test-secret",
+        },
+        method: "POST",
+      });
+      assert.equal(res.ok, true);
+    } catch (err) {
+      const detail = `${err instanceof Error ? err.message : err}\n--- stderr ---\n${log.err}\n--- stdout ---\n${log.out}`;
+      throw new Error(detail);
+    } finally {
+      await killChild(child);
+    }
+  });
+
   test("start:rest-api — server listens and responds", async () => {
     const { child, log } = spawnNode("src/01-networking/01_rest-api/index.js");
     try {
