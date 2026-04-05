@@ -301,7 +301,7 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:webhook — POST with shared secret succeeds", async () => {
+  test("start:webhook", async () => {
     const entry = path.join(root, "src/02-communication/05_webhook/index.js");
     const child = spawn(process.execPath, [entry], {
       cwd: root,
@@ -334,7 +334,7 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:rest-api — server listens and responds", async () => {
+  test("start:rest-api", async () => {
     const { child, log } = spawnNode("src/01-networking/01_rest-api/index.js");
     try {
       await waitForPort("127.0.0.1", 3000, 15_000);
@@ -363,7 +363,7 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:grpc-server + start:grpc-client — HTTP responds", async () => {
+  test("start:grpc-server + start:grpc-client", async () => {
     const server = spawnNode("src/01-networking/03_grpc/server/index.js");
     try {
       await waitForPort("127.0.0.1", 30043, 15_000);
