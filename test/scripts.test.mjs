@@ -7,7 +7,7 @@ import { afterEach, before, describe, test } from "node:test";
 import { fileURLToPath } from "node:url";
 
 /** Ports used by runnable examples in this repo (avoid clashes between tests). */
-const EXAMPLE_PORTS = [3000, 4000, 30043];
+const EXAMPLE_PORTS = [3000, 3010, 4000, 30043];
 
 /**
  * @param {number} ms
@@ -355,6 +355,27 @@ describe("npm scripts", { concurrency: false }, () => {
     try {
       await waitForPort("127.0.0.1", 4000, 20_000);
       await runNodeOnce("src/01-networking/02_graphql/client/fetch/index.js");
+    } catch (err) {
+      const detail = `${err instanceof Error ? err.message : err}\n--- stderr ---\n${log.err}\n--- stdout ---\n${log.out}`;
+      throw new Error(detail);
+    } finally {
+      await killChild(child);
+    }
+  });
+
+  test("start:server-side-mitigation", async () => {
+    const { child, log } = spawnNode(
+      "src/03-security/01_xss/server-side-mitigation/index.js",
+    );
+    try {
+      await waitForPort("127.0.0.1", 3010, 15_000);
+      const res = await fetch("http://127.0.0.1:3010/");
+      assert.equal(res.ok, true);
+      const csp = res.headers.get("content-security-policy");
+      assert.ok(
+        csp?.includes("script-src"),
+        "expected Content-Security-Policy with script-src",
+      );
     } catch (err) {
       const detail = `${err instanceof Error ? err.message : err}\n--- stderr ---\n${log.err}\n--- stdout ---\n${log.out}`;
       throw new Error(detail);
