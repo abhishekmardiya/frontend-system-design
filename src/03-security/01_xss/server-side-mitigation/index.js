@@ -1,36 +1,31 @@
-import { randomBytes } from "node:crypto";
-import { readFileSync } from "node:fs";
-import path from "node:path";
+import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import express from "express";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const indexTemplate = readFileSync(
-  path.join(__dirname, "public", "index.html"),
-  "utf8",
-);
-
+const PORT = 3010;
 const app = express();
 
 // Policy matches index.html: same-origin + this request’s nonce for trusted inline script; optional
 // third-party script URL; img-src for the external profile image. Inline script without a nonce is blocked.
-app.get("/", (_req, res) => {
-  const nonce = randomBytes(16).toString("base64");
+app.use((_req, res, next) => {
   res.setHeader(
     "Content-Security-Policy",
-    [
-      "default-src 'self'",
-      `script-src 'self' 'nonce-${nonce}' http://unsecure.com`,
-      "img-src 'self' https://media.licdn.com",
-      "object-src 'none'",
-      "base-uri 'self'",
-    ].join("; "),
+    "default-src 'self';" +
+      "script-src 'self' 'nonce-randomKey' 'unsafe-inline' http://unsecure.com;",
   );
-  res.type("html").send(indexTemplate.replaceAll("%NONCE%", nonce));
+  next();
 });
 
-const port = 3010;
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+// expose the public folder
+app.use(express.static("public"));
+
+app.get("/", (req, res) => {
+  console.log(req.url);
+  res.sendFile(join(__dirname, "index.html"));
+});
+
+app.listen(PORT, () => {
+  console.log(`Server started at http://locolhost:${PORT}`);
 });
