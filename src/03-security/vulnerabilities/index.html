@@ -11,12 +11,12 @@
 
     <script>
       // Function to set a cookie, mostly this will be set from server
-      function setCookie(name, value, days) {
+      const setCookie = (name, value, days) => {
         const date = new Date();
         date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
         const expires = `expires=${date.toUTCString()}`;
         document.cookie = `${name}=${value};${expires};path=/`;
-      }
+      };
 
       // Example: Set a cookie named "exampleCookie" with value "Hello, Cookie!" that expires in 7 days
       setCookie("exampleCookie", "Hello, Cookie!", 7);
