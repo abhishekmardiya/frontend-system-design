@@ -7,12 +7,16 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 app.use((_req, res, next) => {
-  res.setHeader("Content-Security-Policy", "frame-ancestors 'none'");
+  // Clickjacking mitigation: uncomment the next line to forbid embedding (CSP frame-ancestors 'none').
+  // Leave it commented so the parent app on :5010 can iframe these pages for the demos.
+  // res.setHeader("Content-Security-Policy", "frame-ancestors 'none'");
 
   res.cookie("sessionID", "12345", {
     httpOnly: true,
     secure: true,
     sameSite: "strict",
+    maxAge: 60 * 60 * 24 * 30, // 30 days
+    path: "/",
   });
   next();
 });
