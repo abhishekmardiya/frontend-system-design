@@ -16,6 +16,8 @@
     "start:sse": "nodemon src/02-communication/04_sse src/02-communication/04_sse/index.js",
     "start:webhook": "nodemon src/02-communication/05_webhook src/02-communication/05_webhook/index.js",
     "start:server-side-mitigation": "nodemon src/03-security/01_xss/server-side-mitigation src/03-security/01_xss/server-side-mitigation/index.js",
+    "start:iframe-protection-server1": "nodemon src/03-security/02_iframe-protection/server1 src/03-security/02_iframe-protection/server1/index.js",
+    "start:iframe-protection-server2": "nodemon src/03-security/02_iframe-protection/server2 src/03-security/02_iframe-protection/server2/index.js",
     "lint": "biome check",
     "format": "biome format --write",
     "test": "node --test test/scripts.test.mjs"

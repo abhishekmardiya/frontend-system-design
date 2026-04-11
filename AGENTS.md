@@ -18,6 +18,10 @@
 - ESM `import` paths are relative to the file—fine.
 - String paths resolved from **`process.cwd()`** (e.g. proto loaders, `readFileSync`) break when cwd is the repo root. Build paths from **`import.meta.url`** + **`fileURLToPath`** + **`node:path`** (see gRPC).
 
+## Linting
+
+- **Do not** fix linting errors when **editing or creating** any file unless the user **explicitly** asks you to fix lint. Do not add `biome-ignore` (or similar) comments, refactors, or rewrites whose main purpose is to satisfy the linter.
+
 ## Comments
 
 - **`src/…` examples are teaching aids:** add short comments.
@@ -27,4 +31,4 @@
 ## Before you finish
 
 - README script table ↔ `package.json` scripts; new topic ↔ Concepts row; chapter README: `npm run`, ports, Dependencies match imports; no duplicated **Setup** block in `src/…` READMEs.
-- After changing scripts or entrypoints: **`npm test`**.
+- After changing scripts or entrypoints: **`npm test`**. (That script runs `lint`; per **Linting** above, do not change code only to make lint pass unless the user asked.)
