@@ -18,6 +18,7 @@
     "start:server-side-mitigation": "nodemon src/03-security/01_xss/server-side-mitigation src/03-security/01_xss/server-side-mitigation/index.js",
     "start:iframe-protection-server1": "nodemon src/03-security/02_iframe-protection/server1 src/03-security/02_iframe-protection/server1/index.js",
     "start:iframe-protection-server2": "nodemon src/03-security/02_iframe-protection/server2 src/03-security/02_iframe-protection/server2/index.js",
+    "start:security-headers": "nodemon src/03-security/03_security-headers src/03-security/03_security-headers/index.js",
     "lint": "biome check",
     "format": "biome format --write",
     "test": "node --test test/scripts.test.mjs"

@@ -22,7 +22,7 @@ app.get("/example3", (_req, res) => {
   res.sendFile(join(__dirname, "public", "example3.html"));
 });
 
-const PORT = 5010;
+const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(

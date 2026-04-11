@@ -5,7 +5,7 @@ import express from "express";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const indexHtmlPath = join(__dirname, "public", "index.html");
 
-const PORT = 3010;
+const PORT = 3000;
 const app = express();
 
 /* Rules for Using a CSP Nonce

@@ -8,7 +8,7 @@ const app = express();
 
 app.use((_req, res, next) => {
   // Clickjacking mitigation: uncomment the next line to forbid embedding (CSP frame-ancestors 'none').
-  // Leave it commented so the parent app on :5010 can iframe these pages for the demos.
+  // Leave it commented so the parent app on :3000 can iframe these pages for the demos.
   // res.setHeader("Content-Security-Policy", "frame-ancestors 'none'");
 
   res.cookie("sessionID", "12345", {
@@ -32,7 +32,7 @@ app.get("/iframe-website2", (_req, res) => {
   res.sendFile(join(__dirname, "public", "iframe-website2.html"));
 });
 
-const PORT = 5011;
+const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log(
