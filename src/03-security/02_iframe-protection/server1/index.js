@@ -25,4 +25,7 @@ app.get("/example3", (_req, res) => {
 const PORT = 5010;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(
+    `Files in public/ are served at http://localhost:${PORT}/example1, /example2, /example3.`,
+  );
 });

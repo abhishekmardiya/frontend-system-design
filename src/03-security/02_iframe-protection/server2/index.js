@@ -20,15 +20,18 @@ app.use((_req, res, next) => {
 app.use(express.static(join(__dirname, "public")));
 
 // Define your routes
-app.get("/iframe-webiste1", (_req, res) => {
-  res.sendFile(join(__dirname, "public", "iframe-webiste1.html"));
+app.get("/iframe-website1", (_req, res) => {
+  res.sendFile(join(__dirname, "public", "iframe-website1.html"));
 });
 
-app.get("/iframe-webiste2", (_req, res) => {
-  res.sendFile(join(__dirname, "public", "iframe-webiste2.html"));
+app.get("/iframe-website2", (_req, res) => {
+  res.sendFile(join(__dirname, "public", "iframe-website2.html"));
 });
 
 const PORT = 5011;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(
+    `Files in public/ are served at http://localhost:${PORT}/iframe-website1, /iframe-website2 (and other static paths).`,
+  );
 });

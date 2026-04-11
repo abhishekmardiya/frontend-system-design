@@ -1,4 +1,5 @@
 {
+  "liveServer.settings.AdvanceCustomBrowserCmdLine": "/Applications/Brave Browser.app/Contents/MacOS/Brave Browser",
   "editor.defaultFormatter": "biomejs.biome",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {

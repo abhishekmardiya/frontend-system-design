@@ -406,7 +406,7 @@ describe("npm scripts", { concurrency: false }, () => {
     );
     try {
       await waitForPort("127.0.0.1", 5011, 15_000);
-      const res = await fetch("http://127.0.0.1:5011/iframe-webiste1");
+      const res = await fetch("http://127.0.0.1:5011/iframe-website1");
       assert.equal(res.ok, true);
       const csp = res.headers.get("content-security-policy");
       assert.ok(

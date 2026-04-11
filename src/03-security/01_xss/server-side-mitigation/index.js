@@ -53,4 +53,5 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server started at http://localhost:${PORT}`);
+  console.log(`public/index.html is served at http://localhost:${PORT}/`);
 });
