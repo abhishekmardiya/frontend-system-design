@@ -4,6 +4,17 @@
   "private": true,
   "main": "index.js",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhishekmardiya/frontend-system-design.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abhishekmardiya/frontend-system-design/issues"
+  },
+  "homepage": "https://github.com/abhishekmardiya/frontend-system-design#readme",
   "scripts": {
     "start:rest-api": "nodemon src/01-networking/01_rest-api src/01-networking/01_rest-api/index.js",
     "start:graphql": "nodemon src/01-networking/02_graphql/server src/01-networking/02_graphql/server/index.js",
@@ -19,21 +30,11 @@
     "start:iframe-protection-server1": "nodemon src/03-security/02_iframe-protection/server1 src/03-security/02_iframe-protection/server1/index.js",
     "start:iframe-protection-server2": "nodemon src/03-security/02_iframe-protection/server2 src/03-security/02_iframe-protection/server2/index.js",
     "start:security-headers": "nodemon src/03-security/03_security-headers src/03-security/03_security-headers/index.js",
+
     "lint": "biome check",
     "format": "biome format --write",
     "test": "node --test test/scripts.test.mjs"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/abhishekmardiya/frontend-system-design.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/abhishekmardiya/frontend-system-design/issues"
-  },
-  "homepage": "https://github.com/abhishekmardiya/frontend-system-design#readme",
   "dependencies": {
     "@apollo/server": "^5.5.0",
     "@grpc/grpc-js": "^1.9.13",
