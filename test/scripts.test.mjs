@@ -442,6 +442,27 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
+  test("start:permissions-policy", async () => {
+    const { child, log } = spawnNode(
+      "src/03-security/04_permissions-policy/index.js",
+    );
+    try {
+      await waitForPort("127.0.0.1", 3000, 15_000);
+      const res = await fetch("http://127.0.0.1:3000/page");
+      assert.equal(res.ok, true);
+      const policy = res.headers.get("permissions-policy");
+      assert.ok(
+        policy?.includes("geolocation=()"),
+        "expected Permissions-Policy to disable geolocation",
+      );
+    } catch (err) {
+      const detail = `${err instanceof Error ? err.message : err}\n--- stderr ---\n${log.err}\n--- stdout ---\n${log.out}`;
+      throw new Error(detail);
+    } finally {
+      await killChild(child);
+    }
+  });
+
   test("start:grpc-server + start:grpc-client", async () => {
     const server = spawnNode("src/01-networking/03_grpc/server/index.js");
     try {

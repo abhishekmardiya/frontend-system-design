@@ -30,6 +30,7 @@
     "start:iframe-protection-server1": "nodemon src/03-security/02_iframe-protection/server1 src/03-security/02_iframe-protection/server1/index.js",
     "start:iframe-protection-server2": "nodemon src/03-security/02_iframe-protection/server2 src/03-security/02_iframe-protection/server2/index.js",
     "start:security-headers": "nodemon src/03-security/03_security-headers src/03-security/03_security-headers/index.js",
+    "start:permissions-policy": "nodemon src/03-security/04_permissions-policy src/03-security/04_permissions-policy/index.js",
 
     "lint": "biome check",
     "format": "biome format --write",

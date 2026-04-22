@@ -31,6 +31,7 @@
 | **Cross-Site Scripting (XSS)** | `[01_xss](src/03-security/01_xss)`                             |
 | **Iframe protection**          | `[02_iframe-protection](src/03-security/02_iframe-protection)` |
 | **Security headers**           | `[03_security-headers](src/03-security/03_security-headers)`   |
+| **Permissions Policy**         | `[04_permissions-policy](src/03-security/04_permissions-policy)` |
 
 ## Setup
 
@@ -64,6 +65,7 @@ From the repository root. All `**start:…**` scripts run through **[nodemon](ht
 | `npm run start:iframe-protection-server1` | Parent / embedder pages → **[http://localhost:3000](http://localhost:3000)** (see [iframe protection README](src/03-security/02_iframe-protection/README.md)) |
 | `npm run start:iframe-protection-server2` | Framed origin (`frame-ancestors`) → **[http://localhost:3001](http://localhost:3001)** (same README)                                                          |
 | `npm run start:security-headers`          | Security headers demo → **[http://localhost:3000](http://localhost:3000)** (see [security headers README](src/03-security/03_security-headers/README.md))     |
+| `npm run start:permissions-policy`        | Permissions-Policy (geolocation off) → **[http://localhost:3000](http://localhost:3000)** (see [Permissions Policy README](src/03-security/04_permissions-policy/README.md)) |
 
 Each chapter’s **README** has API details and a file map.
 
