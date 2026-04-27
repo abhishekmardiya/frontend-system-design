@@ -424,7 +424,10 @@ describe("npm scripts", { concurrency: false }, () => {
     );
     try {
       await waitForPort("127.0.0.1", 3000, 15_000);
-      const res = await fetch("http://127.0.0.1:3000/list");
+      // Server treats requests as HTTPS when behind a proxy; plain http:// would redirect away.
+      const res = await fetch("http://127.0.0.1:3000/list", {
+        headers: { "X-Forwarded-Proto": "https" },
+      });
       assert.equal(res.ok, true);
       assert.equal(res.headers.get("referrer-policy"), "no-referrer");
       assert.equal(res.headers.get("x-content-type-options"), "nosniff");
@@ -455,6 +458,28 @@ describe("npm scripts", { concurrency: false }, () => {
         policy?.includes("geolocation=()"),
         "expected Permissions-Policy to disable geolocation",
       );
+    } catch (err) {
+      const detail = `${err instanceof Error ? err.message : err}\n--- stderr ---\n${log.err}\n--- stdout ---\n${log.out}`;
+      throw new Error(detail);
+    } finally {
+      await killChild(child);
+    }
+  });
+
+  test("start:cors", async () => {
+    const { child, log } = spawnNode("src/03-security/06_cors/server/index.js");
+    try {
+      await waitForPort("127.0.0.1", 3000, 15_000);
+      const res = await fetch("http://127.0.0.1:3000/list", {
+        headers: { Origin: "http://127.0.0.1:5500" },
+      });
+      assert.equal(res.ok, true);
+      assert.equal(
+        res.headers.get("access-control-allow-origin"),
+        "http://127.0.0.1:5500",
+      );
+      const data = await res.json();
+      assert.equal(Array.isArray(data), true);
     } catch (err) {
       const detail = `${err instanceof Error ? err.message : err}\n--- stderr ---\n${log.err}\n--- stdout ---\n${log.out}`;
       throw new Error(detail);

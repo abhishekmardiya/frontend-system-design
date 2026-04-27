@@ -31,7 +31,7 @@
     "start:iframe-protection-server2": "nodemon src/03-security/02_iframe-protection/server2 src/03-security/02_iframe-protection/server2/index.js",
     "start:security-headers": "nodemon src/03-security/03_security-headers src/03-security/03_security-headers/index.js",
     "start:permissions-policy": "nodemon src/03-security/04_permissions-policy src/03-security/04_permissions-policy/index.js",
-
+    "start:cors": "nodemon src/03-security/06_cors/server src/03-security/06_cors/server/index.js",
     "lint": "biome check",
     "format": "biome format --write",
     "test": "node --test test/scripts.test.mjs"
@@ -41,6 +41,7 @@
     "@grpc/grpc-js": "^1.9.13",
     "@grpc/proto-loader": "^0.7.10",
     "body-parser": "^2.2.0",
+    "cors": "^2.8.6",
     "express": "^5.2.1",
     "graphql": "^16.11.0",
     "socket.io": "^4.8.3",

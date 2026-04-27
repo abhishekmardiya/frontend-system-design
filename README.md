@@ -26,13 +26,14 @@
 
 ### [Security](src/03-security)
 
-| Topic                          | Code                                                           |
-| ------------------------------ | -------------------------------------------------------------- |
-| **Cross-Site Scripting (XSS)** | `[01_xss](src/03-security/01_xss)`                             |
-| **Iframe protection**          | `[02_iframe-protection](src/03-security/02_iframe-protection)` |
-| **Security headers**           | `[03_security-headers](src/03-security/03_security-headers)`   |
-| **Permissions Policy**         | `[04_permissions-policy](src/03-security/04_permissions-policy)` |
-| **Subresource integrity (SRI)**  | `[05_subresource_integrity](src/03-security/05_subresource_integrity)` |
+| Topic                           | Code                                                                           |
+| ------------------------------- | ------------------------------------------------------------------------------ |
+| **Cross-Site Scripting (XSS)**  | `[01_xss](src/03-security/01_xss)`                                             |
+| **Iframe protection**           | `[02_iframe-protection](src/03-security/02_iframe-protection)`                 |
+| **Security headers**            | `[03_security-headers](src/03-security/03_security-headers)`                   |
+| **Permissions Policy**          | `[04_permissions-policy](src/03-security/04_permissions-policy)`               |
+| **Subresource integrity (SRI)** | `[05_subresource_integrity_sri](src/03-security/05_subresource_integrity_sri)` |
+| **CORS**                        | `[06_cors](src/03-security/06_cors)`                                            |
 
 ## Setup
 
@@ -50,25 +51,26 @@ npm install
 
 From the repository root. All `**start:…**` scripts run through **[nodemon](https://nodemon.io/)**; each script only watches its chapter folder so restarts stay cheap.
 
-| Script                                    | What it runs                                                                                                                                                  |
-| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `npm run start:rest-api`                  | REST todos API → **[http://localhost:3000](http://localhost:3000)**                                                                                           |
-| `npm run start:graphql`                   | Apollo GraphQL → **[http://localhost:4000](http://localhost:4000)**                                                                                           |
-| `npm run start:graphql-fetch`             | Sample `fetch` client (needs GraphQL server up)                                                                                                               |
-| `npm run start:grpc-server`               | gRPC `CustomerService` → **127.0.0.1:30043**                                                                                                                  |
-| `npm run start:grpc-client`               | Express + gRPC client → **[http://localhost:3000](http://localhost:3000)**                                                                                    |
-| `npm run start:short-polling`             | Short-polling demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                   |
-| `npm run start:long-polling`              | Long-polling demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                    |
-| `npm run start:websocket`                 | Socket.IO chat demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                  |
-| `npm run start:sse`                       | Server-Sent Events demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                              |
-| `npm run start:webhook`                   | Webhook receiver demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                |
-| `npm run start:server-side-mitigation`    | CSP demo → **[http://localhost:3000](http://localhost:3000)** (see `[01_xss` README](src/03-security/01_xss/README.md))                                       |
-| `npm run start:iframe-protection-server1` | Parent / embedder pages → **[http://localhost:3000](http://localhost:3000)** (see [iframe protection README](src/03-security/02_iframe-protection/README.md)) |
-| `npm run start:iframe-protection-server2` | Framed origin (`frame-ancestors`) → **[http://localhost:3001](http://localhost:3001)** (same README)                                                          |
-| `npm run start:security-headers`          | Security headers demo → **[http://localhost:3000](http://localhost:3000)** (see [security headers README](src/03-security/03_security-headers/README.md))     |
+| Script                                    | What it runs                                                                                                                                                                 |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run start:rest-api`                  | REST todos API → **[http://localhost:3000](http://localhost:3000)**                                                                                                          |
+| `npm run start:graphql`                   | Apollo GraphQL → **[http://localhost:4000](http://localhost:4000)**                                                                                                          |
+| `npm run start:graphql-fetch`             | Sample `fetch` client (needs GraphQL server up)                                                                                                                              |
+| `npm run start:grpc-server`               | gRPC `CustomerService` → **127.0.0.1:30043**                                                                                                                                 |
+| `npm run start:grpc-client`               | Express + gRPC client → **[http://localhost:3000](http://localhost:3000)**                                                                                                   |
+| `npm run start:short-polling`             | Short-polling demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                                  |
+| `npm run start:long-polling`              | Long-polling demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                                   |
+| `npm run start:websocket`                 | Socket.IO chat demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                                 |
+| `npm run start:sse`                       | Server-Sent Events demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                             |
+| `npm run start:webhook`                   | Webhook receiver demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                               |
+| `npm run start:server-side-mitigation`    | CSP demo → **[http://localhost:3000](http://localhost:3000)** (see `[01_xss` README](src/03-security/01_xss/README.md))                                                      |
+| `npm run start:iframe-protection-server1` | Parent / embedder pages → **[http://localhost:3000](http://localhost:3000)** (see [iframe protection README](src/03-security/02_iframe-protection/README.md))                |
+| `npm run start:iframe-protection-server2` | Framed origin (`frame-ancestors`) → **[http://localhost:3001](http://localhost:3001)** (same README)                                                                         |
+| `npm run start:security-headers`          | Security headers demo → **[http://localhost:3000](http://localhost:3000)** (see [security headers README](src/03-security/03_security-headers/README.md))                    |
 | `npm run start:permissions-policy`        | Permissions-Policy (geolocation off) → **[http://localhost:3000](http://localhost:3000)** (see [Permissions Policy README](src/03-security/04_permissions-policy/README.md)) |
+| `npm run start:cors`                      | CORS sample API → **[http://localhost:3000](http://localhost:3000)** (open [`client/index.html`](src/03-security/06_cors/client/index.html) via Live Server; see [CORS README](src/03-security/06_cors/README.md)) |
 
-**Subresource integrity (SRI)** is a static page only: open [`src/03-security/05_subresource_integrity/index.html`](src/03-security/05_subresource_integrity/index.html) with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) (or any static file server). See [SRI README](src/03-security/05_subresource_integrity/README.md).
+**Subresource integrity (SRI)** is a static page only: open [`src/03-security/05_subresource_integrity_sri/index.html`](src/03-security/05_subresource_integrity_sri/index.html) with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) (or any static file server). See [SRI README](src/03-security/05_subresource_integrity_sri/README.md).
 
 Each chapter’s **README** has API details and a file map.
 
@@ -86,4 +88,4 @@ Install from the root `[package.json](package.json)`. Chapter READMEs list packa
 
 | Packages                                                                                                                                                      |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@apollo/server`, `@biomejs/biome`, `@grpc/grpc-js`, `@grpc/proto-loader`, `@types/uuid`, `body-parser`, `express`, `graphql`, `socket.io`, `uuid`, `nodemon` |
+| `@apollo/server`, `@biomejs/biome`, `@grpc/grpc-js`, `@grpc/proto-loader`, `@types/uuid`, `body-parser`, `cors`, `express`, `graphql`, `socket.io`, `uuid`, `nodemon` |
