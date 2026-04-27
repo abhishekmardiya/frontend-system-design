@@ -7,6 +7,7 @@ const allowedOrigin = ["http://127.0.0.1:5500"];
 
 const corsOptions = {
   origin: (origin, callback) => {
+    // if the origin is in the allowedOrigin array or is not provided, allow the request
     if (allowedOrigin.indexOf(origin) !== -1 || !origin) {
       callback(null, true);
     } else {
