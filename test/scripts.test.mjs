@@ -463,27 +463,6 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:subresource-integrity", async () => {
-    const { child, log } = spawnNode(
-      "src/03-security/05_subresource_integrity/index.js",
-    );
-    try {
-      await waitForPort("127.0.0.1", 3000, 15_000);
-      const res = await fetch("http://127.0.0.1:3000/");
-      assert.equal(res.ok, true);
-      const type = res.headers.get("content-type");
-      assert.ok(
-        type?.includes("text/html"),
-        "expected HTML document for SRI demo page",
-      );
-    } catch (err) {
-      const detail = `${err instanceof Error ? err.message : err}\n--- stderr ---\n${log.err}\n--- stdout ---\n${log.out}`;
-      throw new Error(detail);
-    } finally {
-      await killChild(child);
-    }
-  });
-
   test("start:grpc-server + start:grpc-client", async () => {
     const server = spawnNode("src/01-networking/03_grpc/server/index.js");
     try {

@@ -67,7 +67,8 @@ From the repository root. All `**start:…**` scripts run through **[nodemon](ht
 | `npm run start:iframe-protection-server2` | Framed origin (`frame-ancestors`) → **[http://localhost:3001](http://localhost:3001)** (same README)                                                          |
 | `npm run start:security-headers`          | Security headers demo → **[http://localhost:3000](http://localhost:3000)** (see [security headers README](src/03-security/03_security-headers/README.md))     |
 | `npm run start:permissions-policy`        | Permissions-Policy (geolocation off) → **[http://localhost:3000](http://localhost:3000)** (see [Permissions Policy README](src/03-security/04_permissions-policy/README.md)) |
-| `npm run start:subresource-integrity`     | SRI demo (CDN script with `integrity`) → **[http://localhost:3000](http://localhost:3000)** (see [SRI README](src/03-security/05_subresource_integrity/README.md)) |
+
+**Subresource integrity (SRI)** is a static page only: open [`src/03-security/05_subresource_integrity/index.html`](src/03-security/05_subresource_integrity/index.html) with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) (or any static file server). See [SRI README](src/03-security/05_subresource_integrity/README.md).
 
 Each chapter’s **README** has API details and a file map.
 

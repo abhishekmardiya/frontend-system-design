@@ -1,22 +1,21 @@
 # Subresource integrity
 
-Static page served by Express: loads lodash from a CDN with `integrity` (and `crossorigin="anonymous"`) so the browser verifies the bytes before running the script. Change the hash in `index.html` to see the load fail.
+Loads lodash from a CDN with `integrity` (and `crossorigin="anonymous"`) so the browser verifies the bytes before running the script. Change the hash in `index.html` to see the load fail.
 
-- `npm run start:subresource-integrity` — **http://localhost:3000**
+Open **`index.html`** with VS Code **Live Server** or any static file server (no `npm run` for this example).
 
-Open **GET /** in the browser; use DevTools **Console** to confirm the lodash sample runs, or **Network** to see the script request.
+Use DevTools **Console** to confirm the lodash sample runs, or **Network** to see the script request.
 
 ## Files
 
 | Path         | Role                                                                 |
 | ------------ | -------------------------------------------------------------------- |
-| `index.js`   | Express serves `index.html` at `/`                                   |
 | `index.html` | Page with external `<script integrity="sha384-…" crossorigin>` demo |
 
 ## Dependencies
 
 Root [`package.json`](../../../package.json).
 
-| Packages  |
-| --------- |
-| `express` |
+| Packages |
+| -------- |
+| _none_ (static HTML; CDN script only) |
