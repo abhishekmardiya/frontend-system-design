@@ -34,6 +34,7 @@
 | **Permissions Policy**          | `[04_permissions-policy](src/03-security/04_permissions-policy)`               |
 | **Subresource integrity (SRI)** | `[05_subresource_integrity_sri](src/03-security/05_subresource_integrity_sri)` |
 | **CORS**                        | `[06_cors](src/03-security/06_cors)`                                            |
+| **CSRF**                        | `[07_csrf](src/03-security/07_csrf)`                                            |
 
 ## Setup
 
@@ -70,6 +71,8 @@ From the repository root. All `**start:…**` scripts run through **[nodemon](ht
 | `npm run start:permissions-policy`        | Permissions-Policy (geolocation off) → **[http://localhost:3000](http://localhost:3000)** (see [Permissions Policy README](src/03-security/04_permissions-policy/README.md)) |
 | `npm run start:cors`                      | CORS sample API → **[http://localhost:3000](http://localhost:3000)** (open [`client/index.html`](src/03-security/06_cors/client/index.html) via Live Server; see [CORS README](src/03-security/06_cors/README.md)) |
 
+**CSRF** vulnerability demos are static HTML only: open [`vulnerability/example1.html`](src/03-security/07_csrf/vulnerability/example1.html) and [`vulnerability/example2.html`](src/03-security/07_csrf/vulnerability/example2.html) with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) (or any static file server). Mitigation samples under [`mitigation/`](src/03-security/07_csrf/mitigation/) are teaching references; see [CSRF README](src/03-security/07_csrf/README.md).
+
 **Subresource integrity (SRI)** is a static page only: open [`src/03-security/05_subresource_integrity_sri/index.html`](src/03-security/05_subresource_integrity_sri/index.html) with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) (or any static file server). See [SRI README](src/03-security/05_subresource_integrity_sri/README.md).
 
 Each chapter’s **README** has API details and a file map.
@@ -88,4 +91,4 @@ Install from the root `[package.json](package.json)`. Chapter READMEs list packa
 
 | Packages                                                                                                                                                      |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@apollo/server`, `@biomejs/biome`, `@grpc/grpc-js`, `@grpc/proto-loader`, `@types/uuid`, `body-parser`, `cors`, `express`, `graphql`, `socket.io`, `uuid`, `nodemon` |
+| `@apollo/server`, `@biomejs/biome`, `@grpc/grpc-js`, `@grpc/proto-loader`, `@types/uuid`, `body-parser`, `cors`, `express`, `express-session`, `graphql`, `socket.io`, `uuid`, `nodemon` |
