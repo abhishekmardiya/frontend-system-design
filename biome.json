@@ -30,5 +30,17 @@
         "organizeImports": "on"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/vulnerabilities/**", "**/vulnerability/**"],
+      "linter": {
+        "rules": {
+          "security": {
+            "noGlobalEval": "off"
+          }
+        }
+      }
+    }
+  ]
 }

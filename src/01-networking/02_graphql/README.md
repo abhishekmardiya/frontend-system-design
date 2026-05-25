@@ -1,9 +1,9 @@
 # GraphQL
 
-From the repository root:
+From this folder (`npm install` first):
 
-- `npm run start:graphql` — Apollo at **http://localhost:4000/** (GraphQL HTTP endpoint).
-- Optional: `npm run start:graphql-fetch` — sample query/mutation client (run with the server already up; uses Node’s built-in `fetch`).
+- `npm start` — Apollo at **http://localhost:4000/** (GraphQL HTTP endpoint).
+- Optional: `npm run start:fetch` — sample query/mutation client (run with the server already up; uses Node’s built-in `fetch`).
 
 ## Schema (summary)
 
@@ -24,7 +24,7 @@ See `server/typeDefs.js` for the full SDL and `server/resolvers.js` for field re
 
 ## Dependencies
 
-Root [`package.json`](../../../package.json).
+[`package.json`](./package.json).
 
 | Packages                    |
 | --------------------------- |

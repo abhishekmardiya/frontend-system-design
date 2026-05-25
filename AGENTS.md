@@ -3,20 +3,20 @@
 ## Docs and catalog
 
 - New topic under `src/` → add a **Concepts** row in the root **[README.md](README.md)**.
-- Root **README** owns project intent (three bullets under H1), **Setup**, **Run examples**, and **Concepts**. Keep its script table aligned with root **[package.json](package.json)** `scripts`.
-- Each `src/…` example **README**: **H1** is a short topic title only (**REST API**, **GraphQL**, **gRPC**, **Short polling**—no numeric folder prefixes); **`npm run …`** from repo root, ports, file map.
-- Chapter READMEs **must not** duplicate **[README.md](README.md)** **Setup** (ESM, single root `package.json`, resolving paths with `import.meta.url` and `node:path`). Document that only in the root README.
-- End with **Dependencies**: link to root [package.json](package.json) (correct relative path, e.g. `../../../package.json`). One **Packages** table, one row, comma-separated imports; if stubbed, say so and update when you add deps.
+- Root **README** owns project intent (three bullets under H1), **Setup**, **Run examples**, and **Concepts**. Keep its run table aligned with each example folder’s **[package.json](src/01-networking/01_rest-api/package.json)** scripts.
+- Each `src/…` example **README**: **H1** is a short topic title only (**REST API**, **GraphQL**, **gRPC**, **Short polling**—no numeric folder prefixes); **`npm install`** then **`npm start`** (or the folder’s named scripts) from that folder, ports, file map.
+- Chapter READMEs **must not** duplicate **[README.md](README.md)** **Setup** (ESM, per-folder `package.json`, resolving paths with `import.meta.url` and `node:path`). Document that only in the root README.
+- End with **Dependencies**: link to that folder’s [package.json](src/01-networking/01_rest-api/package.json) (correct relative path, e.g. `./package.json`). One **Packages** table, one row, comma-separated imports; if stubbed, say so and update when you add deps.
 
-## Root `package.json` only
+## Per-folder `package.json`
 
-- All **dependencies** and **scripts** live at the repo root—no `package.json` under `src/`. ESM by default (`"type": "module"`).
-- Runnable examples: `npm run start:…` from root (uses **nodemon**; per-script watch paths in [`package.json`](package.json)). **lint** / **format** stay root-only.
+- Each runnable example under `src/` has its own **dependencies** and **scripts** in a local `package.json`. ESM by default (`"type": "module"`).
+- Runnable examples: `npm install` then `npm start` (or `npm run start:…`) from that folder (uses **nodemon** where listed). Repo-wide **lint** / **format** / integration smoke tests live under [`test/package.json`](test/package.json).
 
 ## Paths
 
 - ESM `import` paths are relative to the file—fine.
-- String paths resolved from **`process.cwd()`** (e.g. proto loaders, `readFileSync`) break when cwd is the repo root. Build paths from **`import.meta.url`** + **`fileURLToPath`** + **`node:path`** (see gRPC).
+- String paths resolved from **`process.cwd()`** (e.g. proto loaders, `readFileSync`) break when cwd is not the example folder. Build paths from **`import.meta.url`** + **`fileURLToPath`** + **`node:path`** (see gRPC).
 
 ## Linting
 
@@ -30,5 +30,5 @@
 
 ## Before you finish
 
-- README script table ↔ `package.json` scripts; new topic ↔ Concepts row; chapter README: `npm run`, ports, Dependencies match imports; no duplicated **Setup** block in `src/…` READMEs.
-- After changing scripts or entrypoints: **`npm test`**. (That script runs `lint`; per **Linting** above, do not change code only to make lint pass unless the user asked.)
+- Root README run table ↔ each example folder’s scripts; new topic ↔ Concepts row; chapter README: `npm install` / `npm start`, ports, Dependencies match imports; no duplicated **Setup** block in `src/…` READMEs.
+- After changing scripts or entrypoints: **`cd test && npm test`**. (That script runs `lint`; per **Linting** above, do not change code only to make lint pass unless the user asked.)

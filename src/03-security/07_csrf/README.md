@@ -8,17 +8,13 @@ Cross-site request forgery: the browser sends a request (often a form POST) that
 
 ## Files
 
-| Path                            | Role                                                                        |
-| ------------------------------- | --------------------------------------------------------------------------- |
-| `vulnerability/example1.html`   | Email-style HTML template (CSRF context in comments / structure)          |
-| `vulnerability/example2.html`   | Simple POST form pointing at a third-party bank URL (attack illustration) |
-| `mitigation/referer.js`         | Express middleware sketch: allow requests whose `Referer` matches your site |
-| `mitigation/anti-crsf.js`       | Express sketch: CSRF token in session + hidden form field                   |
+| Path                          | Role                                                                        |
+| ----------------------------- | --------------------------------------------------------------------------- |
+| `vulnerability/example1.html` | Email-style HTML template (CSRF context in comments / structure)            |
+| `vulnerability/example2.html` | Simple POST form pointing at a third-party bank URL (attack illustration)   |
+| `mitigation/referer.js`       | Express middleware sketch: allow requests whose `Referer` matches your site |
+| `mitigation/anti-crsf.js`     | Express sketch: CSRF token in session + hidden form field                   |
 
 ## Dependencies
 
-Root [`package.json`](../../../package.json).
-
-| Packages                                    |
-| ------------------------------------------- |
-| `express`, `body-parser`, `express-session` |
+No `package.json`. Mitigation samples import packages you would add if wiring them as runnable apps: `express`, `body-parser`, `express-session`.

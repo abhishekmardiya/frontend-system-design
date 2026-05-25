@@ -2,7 +2,9 @@
 
 Small Express app that sets common hardening response headers and shows an HTTPS redirect pattern for deployments behind a reverse proxy.
 
-- `npm run start:security-headers` — **http://localhost:3000** (override with `PORT`)
+From this folder (`npm install` first):
+
+- `npm start` — **http://localhost:3000** (override with `PORT`)
 
 Use **GET `/list`** for a sample JSON body; inspect response headers in DevTools or `curl -I`.
 
@@ -14,7 +16,7 @@ Use **GET `/list`** for a sample JSON body; inspect response headers in DevTools
 
 ## Dependencies
 
-Root [`package.json`](../../../package.json).
+[`package.json`](./package.json).
 
 | Packages  |
 | --------- |

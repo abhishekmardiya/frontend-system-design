@@ -1,11 +1,11 @@
 # gRPC
 
-From the repository root, use two terminals (start the gRPC server first):
+From this folder (`npm install` first), use two terminals (start the gRPC server first):
 
-1. `npm run start:grpc-server` — **127.0.0.1:30043** (`CustomerService`; you should see `gRPC server is listening on 30043`).
-2. `npm run start:grpc-client` — **http://localhost:3000** (Express + gRPC client; RPCs fail if nothing is on `30043`).
+1. `npm run start:server` — **127.0.0.1:30043** (`CustomerService`; you should see `gRPC server is listening on 30043`).
+2. `npm run start:client` — **http://localhost:3000** (Express + gRPC client; RPCs fail if nothing is on `30043`).
 
-## HTTP routes (`npm run start:grpc-client`)
+## HTTP routes (`npm run start:client`)
 
 - `GET /` — list customers (via `GetAll`)
 - `POST /create` — JSON body: `name`, `age`, `address`
@@ -23,7 +23,7 @@ From the repository root, use two terminals (start the gRPC server first):
 
 ## Dependencies
 
-Root [`package.json`](../../../package.json).
+[`package.json`](./package.json).
 
 | Packages                                                                |
 | ----------------------------------------------------------------------- |

@@ -1,6 +1,6 @@
 # REST API
 
-From the repository root: `npm run start:rest-api` — server at **http://localhost:3000**.
+From this folder: `npm install` then `npm start` — server at **http://localhost:3000**.
 
 ## HTTP API
 
@@ -22,7 +22,7 @@ Responses are JSON and include `message` and the full `todos` array where applic
 
 ## Dependencies
 
-Root [`package.json`](../../../package.json).
+[`package.json`](./package.json).
 
 | Packages                 |
 | ------------------------ |

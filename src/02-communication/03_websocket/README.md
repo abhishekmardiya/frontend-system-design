@@ -1,6 +1,6 @@
 # WebSocket
 
-From the repository root: `npm run start:websocket` — **http://localhost:3000** (port set in `index.js` via `server.listen`).
+From this folder: `npm install` then `npm start` — **http://localhost:3000** (port set in `index.js` via `server.listen`).
 
 Express serves the chat page; [Socket.IO](https://socket.io/) runs on the same HTTP server and exposes the client bundle at `/socket.io/socket.io.js`.
 
@@ -23,7 +23,7 @@ the file is actually **served by this Socket.IO server** at `/socket.io/socket.i
 
 ## Dependencies
 
-Root [`package.json`](../../../package.json).
+[`package.json`](./package.json).
 
 | Packages               |
 | ---------------------- |

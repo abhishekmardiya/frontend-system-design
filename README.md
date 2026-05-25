@@ -33,43 +33,51 @@
 | **Security headers**            | `[03_security-headers](src/03-security/03_security-headers)`                   |
 | **Permissions Policy**          | `[04_permissions-policy](src/03-security/04_permissions-policy)`               |
 | **Subresource integrity (SRI)** | `[05_subresource_integrity_sri](src/03-security/05_subresource_integrity_sri)` |
-| **CORS**                        | `[06_cors](src/03-security/06_cors)`                                            |
-| **CSRF**                        | `[07_csrf](src/03-security/07_csrf)`                                            |
+| **CORS**                        | `[06_cors](src/03-security/06_cors)`                                           |
+| **CSRF**                        | `[07_csrf](src/03-security/07_csrf)`                                           |
+
+### [Testing](src/04-testing)
+
+| Topic          | Code                           |
+| -------------- | ------------------------------ |
+| **Unit tests** | `[04-testing](src/04-testing)` |
 
 ## Setup
 
-**Dependencies are managed in a single `package.json` at the repository root.** There are no per-folder `package.json` files. Install once from the root:
+**Each runnable example under `src/` has its own `package.json`.** There is no root manifest. From an example folder:
 
 ```bash
+cd src/01-networking/01_rest-api
 npm install
 ```
 
-**Modules use ESM:** the root manifest sets `"type": "module"`, so `.js` files are treated as ES modules.
+**Modules use ESM:** each folder’s manifest sets `"type": "module"`, so `.js` files are treated as ES modules.
 
-**Paths to files on disk** the current working directory is usually the **repo root**, not the chapter folder. So **do not rely on** paths like `./some-file.js`. Build an absolute path with `**node:path`** and `**import.meta.url\*\*`(via`fileURLToPath`) so the file resolves next to the module, independent of where you started Node.
+**Paths to files on disk** — when you run `npm start`, the current working directory is usually that **example folder**. Still prefer building absolute paths with **`node:path`** and **`import.meta.url`** (via `fileURLToPath`) for proto files, static assets, and anything read by path string so resolution does not depend on where Node was started.
 
 ## Run examples
 
-From the repository root. All `**start:…**` scripts run through **[nodemon](https://nodemon.io/)**; each script only watches its chapter folder so restarts stay cheap.
+From each example folder after `npm install`. All **`start`** scripts use **[nodemon](https://nodemon.io/)** and watch only that folder.
 
-| Script                                    | What it runs                                                                                                                                                                 |
-| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `npm run start:rest-api`                  | REST todos API → **[http://localhost:3000](http://localhost:3000)**                                                                                                          |
-| `npm run start:graphql`                   | Apollo GraphQL → **[http://localhost:4000](http://localhost:4000)**                                                                                                          |
-| `npm run start:graphql-fetch`             | Sample `fetch` client (needs GraphQL server up)                                                                                                                              |
-| `npm run start:grpc-server`               | gRPC `CustomerService` → **127.0.0.1:30043**                                                                                                                                 |
-| `npm run start:grpc-client`               | Express + gRPC client → **[http://localhost:3000](http://localhost:3000)**                                                                                                   |
-| `npm run start:short-polling`             | Short-polling demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                                  |
-| `npm run start:long-polling`              | Long-polling demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                                   |
-| `npm run start:websocket`                 | Socket.IO chat demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                                 |
-| `npm run start:sse`                       | Server-Sent Events demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                             |
-| `npm run start:webhook`                   | Webhook receiver demo → **[http://localhost:3000](http://localhost:3000)** (see folder README)                                                                               |
-| `npm run start:server-side-mitigation`    | CSP demo → **[http://localhost:3000](http://localhost:3000)** (see `[01_xss` README](src/03-security/01_xss/README.md))                                                      |
-| `npm run start:iframe-protection-server1` | Parent / embedder pages → **[http://localhost:3000](http://localhost:3000)** (see [iframe protection README](src/03-security/02_iframe-protection/README.md))                |
-| `npm run start:iframe-protection-server2` | Framed origin (`frame-ancestors`) → **[http://localhost:3001](http://localhost:3001)** (same README)                                                                         |
-| `npm run start:security-headers`          | Security headers demo → **[http://localhost:3000](http://localhost:3000)** (see [security headers README](src/03-security/03_security-headers/README.md))                    |
-| `npm run start:permissions-policy`        | Permissions-Policy (geolocation off) → **[http://localhost:3000](http://localhost:3000)** (see [Permissions Policy README](src/03-security/04_permissions-policy/README.md)) |
-| `npm run start:cors`                      | CORS sample API → **[http://localhost:3000](http://localhost:3000)** (open [`client/index.html`](src/03-security/06_cors/client/index.html) via Live Server; see [CORS README](src/03-security/06_cors/README.md)) |
+| Folder                                  | Command                 | What it runs                                                                                                                                                                                                       |
+| --------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `src/01-networking/01_rest-api`         | `npm start`             | REST todos API → **[http://localhost:3000](http://localhost:3000)**                                                                                                                                                |
+| `src/01-networking/02_graphql`          | `npm start`             | Apollo GraphQL → **[http://localhost:4000](http://localhost:4000)**                                                                                                                                                |
+| `src/01-networking/02_graphql`          | `npm run start:fetch`   | Sample `fetch` client (needs GraphQL server up)                                                                                                                                                                    |
+| `src/01-networking/03_grpc`             | `npm run start:server`  | gRPC `CustomerService` → **127.0.0.1:30043**                                                                                                                                                                       |
+| `src/01-networking/03_grpc`             | `npm run start:client`  | Express + gRPC client → **[http://localhost:3000](http://localhost:3000)**                                                                                                                                         |
+| `src/02-communication/01_short-polling` | `npm start`             | Short-polling demo → **[http://localhost:3000](http://localhost:3000)**                                                                                                                                            |
+| `src/02-communication/02_long-polling`  | `npm start`             | Long-polling demo → **[http://localhost:3000](http://localhost:3000)**                                                                                                                                             |
+| `src/02-communication/03_websocket`     | `npm start`             | Socket.IO chat demo → **[http://localhost:3000](http://localhost:3000)**                                                                                                                                           |
+| `src/02-communication/04_sse`           | `npm start`             | Server-Sent Events demo → **[http://localhost:3000](http://localhost:3000)**                                                                                                                                       |
+| `src/02-communication/05_webhook`       | `npm start`             | Webhook receiver demo → **[http://localhost:3000](http://localhost:3000)**                                                                                                                                         |
+| `src/03-security/01_xss`                | `npm start`             | CSP demo → **[http://localhost:3000](http://localhost:3000)** (see [XSS README](src/03-security/01_xss/README.md))                                                                                                 |
+| `src/03-security/02_iframe-protection`  | `npm run start:server1` | Parent / embedder pages → **[http://localhost:3000](http://localhost:3000)**                                                                                                                                       |
+| `src/03-security/02_iframe-protection`  | `npm run start:server2` | Framed origin → **[http://localhost:3001](http://localhost:3001)** (see [iframe protection README](src/03-security/02_iframe-protection/README.md))                                                                |
+| `src/03-security/03_security-headers`   | `npm start`             | Security headers demo → **[http://localhost:3000](http://localhost:3000)**                                                                                                                                         |
+| `src/03-security/04_permissions-policy` | `npm start`             | Permissions-Policy (geolocation off) → **[http://localhost:3000](http://localhost:3000)**                                                                                                                          |
+| `src/03-security/06_cors`               | `npm start`             | CORS sample API → **[http://localhost:3000](http://localhost:3000)** (open [`client/index.html`](src/03-security/06_cors/client/index.html) via Live Server; see [CORS README](src/03-security/06_cors/README.md)) |
+| `src/04-testing`                        | `npm test`              | Jest unit tests for `app.js`                                                                                                                                                                                       |
 
 **CSRF** vulnerability demos are static HTML only: open [`vulnerability/example1.html`](src/03-security/07_csrf/vulnerability/example1.html) and [`vulnerability/example2.html`](src/03-security/07_csrf/vulnerability/example2.html) with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) (or any static file server). Mitigation samples under [`mitigation/`](src/03-security/07_csrf/mitigation/) are teaching references; see [CSRF README](src/03-security/07_csrf/README.md).
 
@@ -79,16 +87,20 @@ Each chapter’s **README** has API details and a file map.
 
 ## Linting and test
 
-| Script           | What it runs                                                                                             |
-| ---------------- | -------------------------------------------------------------------------------------------------------- |
-| `npm run lint`   | `biome check`                                                                                            |
-| `npm run format` | `biome format --write`                                                                                   |
-| `npm test`       | `node --test test/scripts.test.mjs` — runs `lint` and `format`, then smoke-checks every `start:…` script |
+From the [`test/`](test/) folder:
+
+```bash
+cd test
+npm install
+npm test
+```
+
+| Script           | What it runs                                                                                   |
+| ---------------- | ---------------------------------------------------------------------------------------------- |
+| `npm run lint`   | `biome check ..` (repo-wide, config in root [`biome.json`](biome.json))                        |
+| `npm run format` | `biome format --write ..`                                                                      |
+| `npm test`       | `node --test scripts.test.mjs` — runs `lint` and `format`, then smoke-checks runnable examples |
 
 ## Dependencies
 
-Install from the root `[package.json](package.json)`. Chapter READMEs list packages used per example.
-
-| Packages                                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@apollo/server`, `@biomejs/biome`, `@grpc/grpc-js`, `@grpc/proto-loader`, `@types/uuid`, `body-parser`, `cors`, `express`, `express-session`, `graphql`, `socket.io`, `uuid`, `nodemon` |
+Install per example folder (`npm install` in that folder). Chapter READMEs list packages used in each example. Repo-wide lint tooling lives in [`test/package.json`](test/package.json).

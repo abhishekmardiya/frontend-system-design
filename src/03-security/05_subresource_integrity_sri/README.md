@@ -8,14 +8,10 @@ Use DevTools **Console** to confirm the lodash sample runs, or **Network** to se
 
 ## Files
 
-| Path         | Role                                                                 |
-| ------------ | -------------------------------------------------------------------- |
+| Path         | Role                                                                |
+| ------------ | ------------------------------------------------------------------- |
 | `index.html` | Page with external `<script integrity="sha384-…" crossorigin>` demo |
 
 ## Dependencies
 
-Root [`package.json`](../../../package.json).
-
-| Packages |
-| -------- |
-| _none_ (static HTML; CDN script only) |
+No `package.json` — static HTML only; CDN script in the page.

@@ -1,6 +1,6 @@
 # Cross-Site Scripting
 
-From the repository root: `npm run start:server-side-mitigation` — **http://localhost:3000** for the CSP demo (port set in `server-side-mitigation/index.js` via `app.listen`).
+From this folder: `npm install` then `npm start` — **http://localhost:3000** for the CSP demo (port set in `server-side-mitigation/index.js` via `app.listen`).
 
 The `vulnerabilities/` HTML files are static examples (open with your editor’s Live Server or similar); they are not wired to an `npm run` script. Open `index.html` for reflected XSS and `eval.html` for **dynamic JavaScript injection** (user-supplied text executed via `eval()`).
 
@@ -15,7 +15,7 @@ The `vulnerabilities/` HTML files are static examples (open with your editor’s
 
 ## Dependencies
 
-Root [`package.json`](../../../package.json).
+[`package.json`](./package.json).
 
 | Packages  |
 | --------- |

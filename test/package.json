@@ -1,0 +1,13 @@
+{
+  "name": "frontend-system-design-tests",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "biome check ..",
+    "format": "biome format --write ..",
+    "test": "node --test scripts.test.mjs"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.14"
+  }
+}

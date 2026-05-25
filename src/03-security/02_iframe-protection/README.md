@@ -1,9 +1,9 @@
 # Iframe protection
 
-Run **both** servers for the cross-origin demos (parent on 3000 embeds child on 3001).
+Run **both** servers for the cross-origin demos (parent on 3000 embeds child on 3001). From this folder (`npm install` first):
 
-- `npm run start:iframe-protection-server1` — **http://localhost:3000** (parent / attacker-style pages: `/example1`, `/example2`, `/example3`)
-- `npm run start:iframe-protection-server2` — **http://localhost:3001** (framed pages: `/iframe-website1`, `/iframe-website2`; ports set in each `index.js`)
+- `npm run start:server1` — **http://localhost:3000** (parent / attacker-style pages: `/example1`, `/example2`, `/example3`)
+- `npm run start:server2` — **http://localhost:3001** (framed pages: `/iframe-website1`, `/iframe-website2`; ports set in each `index.js`)
 
 Server 2 can send `Content-Security-Policy: frame-ancestors 'none'` (uncomment in `server2/index.js`) so browsers block embedding those URLs in a cross-origin iframe; it is left commented so `/example1` can load the child iframe with both servers up.
 
@@ -21,7 +21,7 @@ Server 2 can send `Content-Security-Policy: frame-ancestors 'none'` (uncomment i
 
 ## Dependencies
 
-Root [`package.json`](../../../package.json).
+[`package.json`](./package.json).
 
 | Packages  |
 | --------- |

@@ -1,6 +1,6 @@
 # Webhook
 
-From the repository root: `npm run start:webhook` — **http://localhost:3000** (port set in `index.js` via `app.listen`).
+From this folder: `npm install` then `npm start` — **http://localhost:3000** (port set in `index.js` via `app.listen`).
 
 ## Files
 
@@ -10,7 +10,7 @@ From the repository root: `npm run start:webhook` — **http://localhost:3000** 
 
 ## Dependencies
 
-Root [`package.json`](../../../package.json).
+[`package.json`](./package.json).
 
 | Packages                 |
 | ------------------------ |

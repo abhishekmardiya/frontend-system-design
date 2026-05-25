@@ -9,6 +9,24 @@ import { fileURLToPath } from "node:url";
 /** Ports used by runnable examples in this repo (avoid clashes between tests). */
 const EXAMPLE_PORTS = [3000, 3001, 4000, 30043];
 
+/** Example folders with their own package.json (installed before smoke tests). */
+const PACKAGE_DIRS = [
+  "src/01-networking/01_rest-api",
+  "src/01-networking/02_graphql",
+  "src/01-networking/03_grpc",
+  "src/02-communication/01_short-polling",
+  "src/02-communication/02_long-polling",
+  "src/02-communication/03_websocket",
+  "src/02-communication/04_sse",
+  "src/02-communication/05_webhook",
+  "src/03-security/01_xss",
+  "src/03-security/02_iframe-protection",
+  "src/03-security/03_security-headers",
+  "src/03-security/04_permissions-policy",
+  "src/03-security/06_cors",
+  "test",
+];
+
 /**
  * @param {number} ms
  * @returns {Promise<void>}
@@ -101,6 +119,7 @@ function freePorts(ports) {
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
+const npmCmd = process.platform === "win32" ? "npm.cmd" : "npm";
 
 /**
  * @param {string} host
@@ -130,14 +149,24 @@ function waitForPort(host, port, timeoutMs) {
 }
 
 /**
+ * @param {string} relativeDir path from repo root
+ */
+function installPackage(relativeDir) {
+  execFileSync(npmCmd, ["install"], {
+    cwd: path.join(root, relativeDir),
+    stdio: "pipe",
+  });
+}
+
+/**
  * @param {string} name
+ * @param {string} relativeDir path from repo root (folder with package.json)
  * @returns {Promise<void>}
  */
-function runNpmScript(name) {
+function runNpmScript(name, relativeDir) {
   return new Promise((resolve, reject) => {
-    const npmCmd = process.platform === "win32" ? "npm.cmd" : "npm";
     const child = spawn(npmCmd, ["run", name], {
-      cwd: root,
+      cwd: path.join(root, relativeDir),
       stdio: ["ignore", "pipe", "pipe"],
     });
     let out = "";
@@ -154,7 +183,7 @@ function runNpmScript(name) {
       } else {
         reject(
           new Error(
-            `npm run ${name} exited with code ${code}\n--- stderr ---\n${err}\n--- stdout ---\n${out}`,
+            `npm run ${name} in ${relativeDir} exited with code ${code}\n--- stderr ---\n${err}\n--- stdout ---\n${out}`,
           ),
         );
       }
@@ -163,13 +192,15 @@ function runNpmScript(name) {
 }
 
 /**
- * @param {string} relativeEntry path from repo root (e.g. `src/.../index.js`)
+ * @param {string} relativeExampleDir path from repo root (folder with package.json)
+ * @param {string} relativeEntry path relative to example dir (e.g. `index.js`)
  * @returns {{ child: import('node:child_process').ChildProcess; log: { out: string; err: string } }}
  */
-function spawnNode(relativeEntry) {
-  const entry = path.join(root, relativeEntry);
+function spawnNode(relativeExampleDir, relativeEntry) {
+  const cwd = path.join(root, relativeExampleDir);
+  const entry = path.join(cwd, relativeEntry);
   const child = spawn(process.execPath, [entry], {
-    cwd: root,
+    cwd,
     stdio: ["ignore", "pipe", "pipe"],
   });
   const log = { out: "", err: "" };
@@ -183,17 +214,18 @@ function spawnNode(relativeEntry) {
 }
 
 /**
- * Run an entry once with `node` and resolve when it exits 0. Used where `npm run start:…`
- * uses nodemon (which stays alive) but the underlying script is one-shot.
+ * Run an entry once with `node` and resolve when it exits 0.
  *
- * @param {string} relativeEntry path from repo root
+ * @param {string} relativeExampleDir path from repo root
+ * @param {string} relativeEntry path relative to example dir
  * @returns {Promise<void>}
  */
-function runNodeOnce(relativeEntry) {
+function runNodeOnce(relativeExampleDir, relativeEntry) {
   return new Promise((resolve, reject) => {
-    const entry = path.join(root, relativeEntry);
+    const cwd = path.join(root, relativeExampleDir);
+    const entry = path.join(cwd, relativeEntry);
     const child = spawn(process.execPath, [entry], {
-      cwd: root,
+      cwd,
       stdio: ["ignore", "pipe", "pipe"],
     });
     let out = "";
@@ -211,7 +243,7 @@ function runNodeOnce(relativeEntry) {
       }
       reject(
         new Error(
-          `node ${relativeEntry} exited with code ${code}\n--- stderr ---\n${err}\n--- stdout ---\n${out}`,
+          `node ${relativeEntry} in ${relativeExampleDir} exited with code ${code}\n--- stderr ---\n${err}\n--- stdout ---\n${out}`,
         ),
       );
     });
@@ -242,8 +274,11 @@ async function killChild(child) {
   clearTimeout(killTimer);
 }
 
-describe("npm scripts", { concurrency: false }, () => {
+describe("example packages", { concurrency: false }, () => {
   before(async () => {
+    for (const dir of PACKAGE_DIRS) {
+      installPackage(dir);
+    }
     await freePorts(EXAMPLE_PORTS);
   });
 
@@ -252,12 +287,16 @@ describe("npm scripts", { concurrency: false }, () => {
   });
 
   test("lint + format", async () => {
-    await Promise.all([runNpmScript("lint"), runNpmScript("format")]);
+    await Promise.all([
+      runNpmScript("lint", "test"),
+      runNpmScript("format", "test"),
+    ]);
   });
 
-  test("start:short-polling", async () => {
+  test("short-polling", async () => {
     const { child, log } = spawnNode(
-      "src/02-communication/01_short-polling/index.js",
+      "src/02-communication/01_short-polling",
+      "index.js",
     );
     try {
       await waitForPort("127.0.0.1", 3000, 15_000);
@@ -271,9 +310,10 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:websocket", async () => {
+  test("websocket", async () => {
     const { child, log } = spawnNode(
-      "src/02-communication/03_websocket/index.js",
+      "src/02-communication/03_websocket",
+      "index.js",
     );
     try {
       await waitForPort("127.0.0.1", 3000, 15_000);
@@ -287,8 +327,8 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:sse", async () => {
-    const { child, log } = spawnNode("src/02-communication/04_sse/index.js");
+  test("sse", async () => {
+    const { child, log } = spawnNode("src/02-communication/04_sse", "index.js");
     try {
       await waitForPort("127.0.0.1", 3000, 15_000);
       const res = await fetch("http://127.0.0.1:3000/");
@@ -301,10 +341,11 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:webhook", async () => {
-    const entry = path.join(root, "src/02-communication/05_webhook/index.js");
+  test("webhook", async () => {
+    const cwd = path.join(root, "src/02-communication/05_webhook");
+    const entry = path.join(cwd, "index.js");
     const child = spawn(process.execPath, [entry], {
-      cwd: root,
+      cwd,
       env: { ...process.env, WEBHOOK_SECRET: "test-secret" },
       stdio: ["ignore", "pipe", "pipe"],
     });
@@ -334,8 +375,11 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:rest-api", async () => {
-    const { child, log } = spawnNode("src/01-networking/01_rest-api/index.js");
+  test("rest-api", async () => {
+    const { child, log } = spawnNode(
+      "src/01-networking/01_rest-api",
+      "index.js",
+    );
     try {
       await waitForPort("127.0.0.1", 3000, 15_000);
       const res = await fetch("http://127.0.0.1:3000/todos");
@@ -348,13 +392,17 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:graphql + start:graphql-fetch", async () => {
+  test("graphql server + fetch client", async () => {
     const { child, log } = spawnNode(
-      "src/01-networking/02_graphql/server/index.js",
+      "src/01-networking/02_graphql",
+      "server/index.js",
     );
     try {
       await waitForPort("127.0.0.1", 4000, 20_000);
-      await runNodeOnce("src/01-networking/02_graphql/client/fetch/index.js");
+      await runNodeOnce(
+        "src/01-networking/02_graphql",
+        "client/fetch/index.js",
+      );
     } catch (err) {
       const detail = `${err instanceof Error ? err.message : err}\n--- stderr ---\n${log.err}\n--- stdout ---\n${log.out}`;
       throw new Error(detail);
@@ -363,9 +411,10 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:server-side-mitigation", async () => {
+  test("server-side-mitigation", async () => {
     const { child, log } = spawnNode(
-      "src/03-security/01_xss/server-side-mitigation/index.js",
+      "src/03-security/01_xss",
+      "server-side-mitigation/index.js",
     );
     try {
       await waitForPort("127.0.0.1", 3000, 15_000);
@@ -384,9 +433,10 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:iframe-protection-server1", async () => {
+  test("iframe-protection server1", async () => {
     const { child, log } = spawnNode(
-      "src/03-security/02_iframe-protection/server1/index.js",
+      "src/03-security/02_iframe-protection",
+      "server1/index.js",
     );
     try {
       await waitForPort("127.0.0.1", 3000, 15_000);
@@ -400,16 +450,15 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:iframe-protection-server2", async () => {
+  test("iframe-protection server2", async () => {
     const { child, log } = spawnNode(
-      "src/03-security/02_iframe-protection/server2/index.js",
+      "src/03-security/02_iframe-protection",
+      "server2/index.js",
     );
     try {
       await waitForPort("127.0.0.1", 3001, 15_000);
       const res = await fetch("http://127.0.0.1:3001/iframe-website1");
       assert.equal(res.ok, true);
-      // CSP frame-ancestors is commented in server2 so :3000 can iframe these pages for the demos;
-      // see server2/index.js and chapter README.
     } catch (err) {
       const detail = `${err instanceof Error ? err.message : err}\n--- stderr ---\n${log.err}\n--- stdout ---\n${log.out}`;
       throw new Error(detail);
@@ -418,13 +467,13 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:security-headers", async () => {
+  test("security-headers", async () => {
     const { child, log } = spawnNode(
-      "src/03-security/03_security-headers/index.js",
+      "src/03-security/03_security-headers",
+      "index.js",
     );
     try {
       await waitForPort("127.0.0.1", 3000, 15_000);
-      // Server treats requests as HTTPS when behind a proxy; plain http:// would redirect away.
       const res = await fetch("http://127.0.0.1:3000/list", {
         headers: { "X-Forwarded-Proto": "https" },
       });
@@ -445,9 +494,10 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:permissions-policy", async () => {
+  test("permissions-policy", async () => {
     const { child, log } = spawnNode(
-      "src/03-security/04_permissions-policy/index.js",
+      "src/03-security/04_permissions-policy",
+      "index.js",
     );
     try {
       await waitForPort("127.0.0.1", 3000, 15_000);
@@ -466,8 +516,11 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:cors", async () => {
-    const { child, log } = spawnNode("src/03-security/06_cors/server/index.js");
+  test("cors", async () => {
+    const { child, log } = spawnNode(
+      "src/03-security/06_cors",
+      "server/index.js",
+    );
     try {
       await waitForPort("127.0.0.1", 3000, 15_000);
       const res = await fetch("http://127.0.0.1:3000/list", {
@@ -488,8 +541,8 @@ describe("npm scripts", { concurrency: false }, () => {
     }
   });
 
-  test("start:grpc-server + start:grpc-client", async () => {
-    const server = spawnNode("src/01-networking/03_grpc/server/index.js");
+  test("grpc server + client", async () => {
+    const server = spawnNode("src/01-networking/03_grpc", "server/index.js");
     try {
       await waitForPort("127.0.0.1", 30043, 15_000);
     } catch (err) {
@@ -498,7 +551,7 @@ describe("npm scripts", { concurrency: false }, () => {
       throw new Error(detail);
     }
 
-    const client = spawnNode("src/01-networking/03_grpc/client/index.js");
+    const client = spawnNode("src/01-networking/03_grpc", "client/index.js");
     try {
       await waitForPort("127.0.0.1", 3000, 15_000);
       const res = await fetch("http://127.0.0.1:3000/");
