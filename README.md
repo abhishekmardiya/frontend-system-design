@@ -95,11 +95,13 @@ npm install
 npm test
 ```
 
-| Script           | What it runs                                                                                   |
-| ---------------- | ---------------------------------------------------------------------------------------------- |
-| `npm run lint`   | `biome check ..` (repo-wide, config in root [`biome.json`](biome.json))                        |
-| `npm run format` | `biome format --write ..`                                                                      |
-| `npm test`       | `node --test scripts.test.mjs` — runs `lint` and `format`, then smoke-checks runnable examples |
+| Script                  | What it runs                                                                                       |
+| ----------------------- | -------------------------------------------------------------------------------------------------- |
+| `npm run lint`          | `biome check ..` (repo-wide, config in root [`biome.json`](biome.json))                            |
+| `npm run format`        | `biome format --write ..`                                                                          |
+| `npm run audit`         | `node audit.mjs` — runs `npm audit` in every folder under `src/` and `test/` with a `package.json` |
+| `npm run audit:install` | same as `audit`, but runs `npm install` first in folders missing a lockfile                        |
+| `npm test`              | `node --test scripts.test.mjs` — runs `lint` and `format`, then smoke-checks runnable examples     |
 
 ## Dependencies
 

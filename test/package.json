@@ -5,6 +5,8 @@
   "scripts": {
     "lint": "biome check ..",
     "format": "biome format --write ..",
+    "audit": "node audit.mjs",
+    "audit:install": "node audit.mjs --install",
     "test": "node --test scripts.test.mjs"
   },
   "devDependencies": {

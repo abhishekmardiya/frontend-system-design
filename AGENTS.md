@@ -11,7 +11,7 @@
 ## Per-folder `package.json`
 
 - Each runnable example under `src/` has its own **dependencies** and **scripts** in a local `package.json`. ESM by default (`"type": "module"`).
-- Runnable examples: `npm install` then `npm start` (or `npm run start:…`) from that folder (uses **nodemon** where listed). Repo-wide **lint** / **format** / integration smoke tests live under [`test/package.json`](test/package.json).
+- Runnable examples: `npm install` then `npm start` (or `npm run start:…`) from that folder (uses **nodemon** where listed). Repo-wide **lint** / **format** / **audit** / integration smoke tests live under [`test/package.json`](test/package.json).
 
 ## Paths
 
