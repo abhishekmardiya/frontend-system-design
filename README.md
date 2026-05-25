@@ -38,22 +38,21 @@
 
 ### [Testing](src/04-testing)
 
-| Topic          | Code                           |
-| -------------- | ------------------------------ |
-| **Unit tests** | `[04-testing](src/04-testing)` |
+| Topic     | Code                           |
+| --------- | ------------------------------ |
+| **tests** | `[04-testing](src/04-testing)` |
 
 ## Setup
 
-**Each runnable example under `src/` has its own `package.json`.** There is no root manifest. From an example folder:
-
-```bash
-cd src/01-networking/01_rest-api
-npm install
-```
+**Each runnable example under `src/` has its own `package.json`.**
 
 **Modules use ESM:** each folder’s manifest sets `"type": "module"`, so `.js` files are treated as ES modules.
 
-**Paths to files on disk** — when you run `npm start`, the current working directory is usually that **example folder**. Still prefer building absolute paths with **`node:path`** and **`import.meta.url`** (via `fileURLToPath`) for proto files, static assets, and anything read by path string so resolution does not depend on where Node was started.
+**Paths to files on disk** — `npm start` runs from that **example folder**, so cwd usually matches the example root. Pick the smallest approach that fits:
+
+- **JS modules** — normal ESM `import` paths; no `import.meta.url` needed.
+- **File in the example root** (e.g. `index.html` next to `index.js`) — `res.sendFile("index.html", { root: process.cwd() })` is enough (see short polling, WebSocket, SSE).
+- **Path relative to the module file** (proto files, `public/` from a nested server, repo paths from `test/`) — build with **`node:path`**, **`import.meta.url`**, and **`fileURLToPath`** (see gRPC, XSS, iframe protection). Do not rely on **`process.cwd()`** there; it breaks when Node was started from another directory.
 
 ## Linting and test
 
@@ -61,8 +60,6 @@ From the [`test/`](test/) folder:
 
 ```bash
 cd test
-npm install
-npm test
 ```
 
 | Script                  | What it runs                                                                                       |

@@ -1,17 +1,13 @@
 import { createServer } from "node:http";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
 import express from "express";
 import { Server } from "socket.io";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
 
 app.get("/", (_req, res) => {
-  res.sendFile(join(__dirname, "index.html"));
+  res.sendFile("index.html", { root: process.cwd() });
 });
 
 // Fires once per browser tab (or client) when the WebSocket handshake completes.

@@ -1,15 +1,11 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import express from "express";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
 const data = "Initial Data";
 
 app.get("/", (_req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile("index.html", { root: process.cwd() });
 });
 
 app.get("/getData", (_req, res) => {

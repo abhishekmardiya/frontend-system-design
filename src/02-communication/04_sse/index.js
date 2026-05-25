@@ -1,8 +1,4 @@
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import express from "express";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 
@@ -29,7 +25,7 @@ app.get("/sse", (req, res) => {
 });
 
 app.get("/", (_req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile("index.html", { root: process.cwd() });
 });
 
 const port = 3000;

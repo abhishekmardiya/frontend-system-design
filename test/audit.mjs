@@ -61,9 +61,10 @@ function auditPackage(relativeDir) {
     });
     return JSON.parse(out);
   } catch (err) {
-    const error = /** @type {NodeJS.ErrnoException & { stdout?: string; stderr?: string }} */ (
-      err
-    );
+    const error =
+      /** @type {NodeJS.ErrnoException & { stdout?: string; stderr?: string }} */ (
+        err
+      );
     if (error.stdout) {
       return JSON.parse(error.stdout);
     }
@@ -89,7 +90,10 @@ function padStart(value, width) {
   return String(value).padStart(width);
 }
 
-const packageDirs = [...collectPackageDirs("src"), ...collectPackageDirs("test")].sort();
+const packageDirs = [
+  ...collectPackageDirs("src"),
+  ...collectPackageDirs("test"),
+].sort();
 
 if (packageDirs.length === 0) {
   console.error("No package.json folders found under src/ or test/.");
@@ -152,7 +156,9 @@ console.log(
 );
 
 if (totals.total > 0) {
-  console.error(`\nFound ${totals.total} vulnerabilities across ${packageDirs.length} folders.`);
+  console.error(
+    `\nFound ${totals.total} vulnerabilities across ${packageDirs.length} folders.`,
+  );
   process.exit(1);
 }
 

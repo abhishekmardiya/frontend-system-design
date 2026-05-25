@@ -5,7 +5,7 @@
 - New topic under `src/` → add a **Concepts** row in the root **[README.md](README.md)**.
 - Root **README** owns project intent (three bullets under H1), **Setup**, **Run examples**, and **Concepts**. Keep its run table aligned with each example folder’s **[package.json](src/01-networking/01_rest-api/package.json)** scripts.
 - Each `src/…` example **README**: **H1** is a short topic title only (**REST API**, **GraphQL**, **gRPC**, **Short polling**—no numeric folder prefixes); **`npm install`** then **`npm start`** (or the folder’s named scripts) from that folder, ports, file map.
-- Chapter READMEs **must not** duplicate **[README.md](README.md)** **Setup** (ESM, per-folder `package.json`, resolving paths with `import.meta.url` and `node:path`). Document that only in the root README.
+- Chapter READMEs **must not** duplicate **[README.md](README.md)** **Setup** (ESM, per-folder `package.json`, file path resolution). Document that only in the root README.
 - End with **Dependencies**: link to that folder’s [package.json](src/01-networking/01_rest-api/package.json) (correct relative path, e.g. `./package.json`). One **Packages** table, one row, comma-separated imports; if stubbed, say so and update when you add deps.
 
 ## Per-folder `package.json`
@@ -15,8 +15,9 @@
 
 ## Paths
 
-- ESM `import` paths are relative to the file—fine.
-- String paths resolved from **`process.cwd()`** (e.g. proto loaders, `readFileSync`) break when cwd is not the example folder. Build paths from **`import.meta.url`** + **`fileURLToPath`** + **`node:path`** (see gRPC).
+- ESM `import` paths are relative to the file—fine; no **`import.meta.url`** needed.
+- **File in the example root** when **`npm start`** sets cwd to that folder (e.g. `index.html` beside `index.js`): **`process.cwd()`** with Express **`sendFile(..., { root: process.cwd() })`** is enough (communication examples).
+- **Path relative to the module file** (proto loaders, nested **`public/`**, repo paths from **`test/`**): build from **`import.meta.url`** + **`fileURLToPath`** + **`node:path`** (see gRPC). Do not use bare **`process.cwd()`** there—it breaks when cwd is not the example folder.
 
 ## Linting
 
