@@ -36,12 +36,6 @@
 | **CORS**                        | `[06_cors](src/03-security/06_cors)`                                           |
 | **CSRF**                        | `[07_csrf](src/03-security/07_csrf)`                                           |
 
-### [Testing](src/04-testing)
-
-| Topic     | Code                           |
-| --------- | ------------------------------ |
-| **tests** | `[04-testing](src/04-testing)` |
-
 ## Setup
 
 **Each runnable example under `src/` has its own `package.json`.**
