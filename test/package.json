@@ -3,13 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "biome check ..",
-    "format": "biome format --write ..",
     "audit": "node audit.mjs",
     "audit:install": "node audit.mjs --install",
     "test": "node --test scripts.test.mjs"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.3.14"
   }
 }

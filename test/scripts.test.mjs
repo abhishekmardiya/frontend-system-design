@@ -159,39 +159,6 @@ function installPackage(relativeDir) {
 }
 
 /**
- * @param {string} name
- * @param {string} relativeDir path from repo root (folder with package.json)
- * @returns {Promise<void>}
- */
-function runNpmScript(name, relativeDir) {
-  return new Promise((resolve, reject) => {
-    const child = spawn(npmCmd, ["run", name], {
-      cwd: path.join(root, relativeDir),
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-    let out = "";
-    let err = "";
-    child.stdout.on("data", (chunk) => {
-      out += chunk;
-    });
-    child.stderr.on("data", (chunk) => {
-      err += chunk;
-    });
-    child.on("close", (code) => {
-      if (code === 0) {
-        resolve();
-      } else {
-        reject(
-          new Error(
-            `npm run ${name} in ${relativeDir} exited with code ${code}\n--- stderr ---\n${err}\n--- stdout ---\n${out}`,
-          ),
-        );
-      }
-    });
-  });
-}
-
-/**
  * @param {string} relativeExampleDir path from repo root (folder with package.json)
  * @param {string} relativeEntry path relative to example dir (e.g. `index.js`)
  * @returns {{ child: import('node:child_process').ChildProcess; log: { out: string; err: string } }}
@@ -284,13 +251,6 @@ describe("example packages", { concurrency: false }, () => {
 
   afterEach(async () => {
     await freePorts(EXAMPLE_PORTS);
-  });
-
-  test("lint + format", async () => {
-    await Promise.all([
-      runNpmScript("lint", "test"),
-      runNpmScript("format", "test"),
-    ]);
   });
 
   test("short-polling", async () => {

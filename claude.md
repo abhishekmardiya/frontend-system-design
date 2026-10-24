@@ -11,17 +11,13 @@
 ## Per-folder `package.json`
 
 - Each runnable example under `src/` has its own **dependencies** and **scripts** in a local `package.json`. ESM by default (`"type": "module"`).
-- Runnable examples: `npm install` then `npm start` (or `npm run start:…`) from that folder (uses **nodemon** where listed). Repo-wide **lint** / **format** / **audit** / integration smoke tests live under [`test/package.json`](test/package.json).
+- Runnable examples: `npm install` then `npm start` (or `npm run start:…`) from that folder (uses **nodemon** where listed). Repo-wide **audit** / integration smoke tests live under [`test/package.json`](test/package.json).
 
 ## Paths
 
 - ESM `import` paths are relative to the file—fine; no **`import.meta.url`** needed.
 - **File in the example root** when **`npm start`** sets cwd to that folder (e.g. `index.html` beside `index.js`): **`process.cwd()`** with Express **`sendFile(..., { root: process.cwd() })`** is enough (communication examples).
 - **Path relative to the module file** (proto loaders, nested **`public/`**, repo paths from **`test/`**): build from **`import.meta.url`** + **`fileURLToPath`** + **`node:path`** (see gRPC). Do not use bare **`process.cwd()`** there—it breaks when cwd is not the example folder.
-
-## Linting
-
-- **Do not** fix linting errors when **editing or creating** any file unless the user **explicitly** asks you to fix lint. Do not add `biome-ignore` (or similar) comments, refactors, or rewrites whose main purpose is to satisfy the linter.
 
 ## Comments
 
@@ -32,4 +28,4 @@
 ## Before you finish
 
 - Root README run table ↔ each example folder’s scripts; new topic ↔ Concepts row; chapter README: `npm install` / `npm start`, ports, Dependencies match imports; no duplicated **Setup** block in `src/…` READMEs.
-- After changing scripts or entrypoints: **`cd test && npm test`**. (That script runs `lint`; per **Linting** above, do not change code only to make lint pass unless the user asked.)
+- After changing scripts or entrypoints: **`cd test && npm test`**.

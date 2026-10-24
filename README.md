@@ -48,7 +48,7 @@
 - **File in the example root** (e.g. `index.html` next to `index.js`) — `res.sendFile("index.html", { root: process.cwd() })` is enough (see short polling, WebSocket, SSE).
 - **Path relative to the module file** (proto files, `public/` from a nested server, repo paths from `test/`) — build with **`node:path`**, **`import.meta.url`**, and **`fileURLToPath`** (see gRPC, XSS, iframe protection). Do not rely on **`process.cwd()`** there; it breaks when Node was started from another directory.
 
-## Linting and test
+## Audit and test
 
 From the [`test/`](test/) folder:
 
@@ -58,12 +58,10 @@ cd test
 
 | Script                  | What it runs                                                                                       |
 | ----------------------- | -------------------------------------------------------------------------------------------------- |
-| `npm run lint`          | `biome check ..` (repo-wide, config in root [`biome.json`](biome.json))                            |
-| `npm run format`        | `biome format --write ..`                                                                          |
 | `npm run audit`         | `node audit.mjs` — runs `npm audit` in every folder under `src/` and `test/` with a `package.json` |
 | `npm run audit:install` | same as `audit`, but runs `npm install` first in folders missing a lockfile                        |
-| `npm test`              | `node --test scripts.test.mjs` — runs `lint` and `format`, then smoke-checks runnable examples     |
+| `npm test`              | `node --test scripts.test.mjs` — smoke-checks runnable examples                                    |
 
 ## Dependencies
 
-Install per example folder (`npm install` in that folder). Chapter READMEs list packages used in each example. Repo-wide lint tooling lives in [`test/package.json`](test/package.json).
+Install per example folder (`npm install` in that folder). Chapter READMEs list packages used in each example. Repo-wide audit and smoke-test scripts live in [`test/package.json`](test/package.json).
